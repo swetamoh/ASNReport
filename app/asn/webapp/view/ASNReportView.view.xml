@@ -94,131 +94,70 @@
 					<Table id="TableDataId" itemPress="onItempress" items="{DataModel>/results}" updateFinished="onupdateFinished" mode="SingleSelectMaster"
 						sticky="ColumnHeaders">
 						<columns>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-								<Text text="Plant"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
-								<Text text="Invoice Number"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-								<Text text="Supplier Batch No"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
-								<Text text="Invoice Date"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="IBD No."/>
-							</Column>
 							<Column width="10rem" minScreenWidth="Tablet" demandPopin="true">
 								<Text text="ASN Number"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Shipment No."/>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
+								<Text text="ASN Date"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="Created By"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Created On"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Shipment Date"/>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="PO Number"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-								<Text text="Order No. &amp; Type" wrapping="true"/>
+								<Text text="Plant Code"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="18rem"
-								visible="{path: 'loginModel>/type', formatter:'sap.fiori.asn.controller.formatter.vendorVisible'}">
-								<Text text="Vendor"/>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="Plant Name"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Purchase Group"/>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="Vendor Code"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="ASN Status"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="GR Status"/>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="Vendor Name"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Inv. Status"/>
+								<Text text="Gate Entry Status"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Invoice Value"/>
+								<Text text="GRN Status"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Total Invoice Amount"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-								<Label text="IGST"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-								<Label text="CGST"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="7rem">
-								<Label text="SGST/UTGST"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Eway Bill No."/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Eway Bill Date"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="Reached Plant Date"/>
+								<Text text="Invoice Status"/>
 							</Column>
 						</columns>
 						<items>
 							<ColumnListItem id="tableTempId" type="Navigation">
 								<cells>
-									<Text text="{DataModel>PlantDesc} ({DataModel>Plant})"></Text>
-									<GenericTag design="StatusIconHidden" text="{DataModel>VendorInvoice}" status="Success" visible="{= ${DataModel>VendorInvoice} !== ''}"/>
-									<Text text="{DataModel>Batch}"/>
-									<Text text="{path:'DataModel>InvDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>
-									<Text text="{DataModel>Ibd}">
-										<customData>
-											<core:CustomData key="highlight" value="true" writeToDom="true"/>
-										</customData>
-									</Text>
-									<ObjectIdentifier title="{DataModel>AsnNumber}/{DataModel>Year}"
-										titleActive="{path:'DataModel>AttachmentFlag', formatter:'sap.fiori.asn.controller.formatter.titleActive'}" titlePress="onAsnPress"></ObjectIdentifier>
-									<Text text="{DataModel>Shipment}">
-										<customData>
-											<core:CustomData key="highlight" value="true" writeToDom="true"/>
-										</customData>
-									</Text>
-									<Text text="{path:'DataModel>CreatedOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>
-									<Text text="{path:'DataModel>ShipmentDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>
-									<Text text="{DataModel>BaseDocument} ({DataModel>BaseDocType})"></Text>
-									<Text text="{DataModel>Name} ({DataModel>Supplier})"></Text>
-									<Text text="{DataModel>PurGrp}">
-										<customData>
-											<core:CustomData key="highlight" value="true" writeToDom="true"/>
-										</customData>
-									</Text>
-									<Text text="{path: 'DataModel>AsnStatusText', formatter: 'sap.fiori.asn.controller.formatter.StatusColorClass'}"></Text>
-									<ObjectStatus text="{DataModel>GrStatus}" state="{=${DataModel>GrStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
-									<ObjectStatus text="{DataModel>InvStatus}" state="{=${DataModel>InvStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
-									<Text text="{DataModel>NetAmount} {DataModel>Currency}"/>
-									<Text text="{DataModel>Totinvamt} {DataModel>Currency}"/>
-									<Text
-										text="{DataModel>IgstAmount} {parts:['DataModel>IgstAmount','DataModel>Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
-									<Text
-										text="{DataModel>CgstAmount} {parts:['DataModel>CgstAmount','DataModel>Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
-									<Text
-										text="{DataModel>SgstAmount} {parts:['DataModel>SgstAmount','DataModel>Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
-									<Text text="{DataModel>EwayBill}"></Text>
-									<Text text="{path:'DataModel>EwayBillDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>
-									<Text text="{path:'DataModel>RchPlantDt', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>
+									<ObjectIdentifier title="{DataModel>ASNNumber}"></ObjectIdentifier>
+									<Text text="{path:'DataModel>ASNDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>
+									<Text text="{DataModel>CreatedBy}"/>
+									<Text text="{path:'DataModel>CreatedBOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>	
+									<Text text="{DataModel>PoNumber} "></Text>
+									<Text text="{DataModel>PlantCode} "></Text>
+									<Text text="{DataModel>PlantName} "></Text>
+									<Text text="{DataModel>VendorCode} "></Text>
+									<Text text="{DataModel>VendorName} "></Text>
+									<ObjectStatus text="{DataModel>GateEntryStatus}" state="{=${DataModel>GrStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
+									<ObjectStatus text="{DataModel>GRNStatus}" state="{=${DataModel>GrStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
+									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{=${DataModel>InvStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
 								</cells>
 							</ColumnListItem>
 						</items>
 					</Table>
 				</ScrollContainer>
 			</content>
-			<footer>
+			<!-- <footer>
 				<Bar>
 					<contentRight>
 						<Button text="Download" icon="sap-icon://download" press="onDataExport" type="Emphasized"/>
 					</contentRight>
 				</Bar>
-			</footer>
+			</footer> -->
 		</Page>
 </mvc:View>
