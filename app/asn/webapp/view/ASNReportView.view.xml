@@ -1,6 +1,8 @@
 <mvc:View controllerName="sap.fiori.asn.controller.ASNReportView" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" class="sapUiSizeCompact">
-		<Page showHeader="false" enableScrolling="false">
+		<Page id="_IDGenPage1" title="ASN Report" titleAlignment="Center"
+        showNavButton="true" navButtonPress="sap.fiori.asn.controller.formatter.onNavBack"
+        class="sapUiSizeCompact">
 			<content>
 				<!-- <l:VerticalLayout width="100%">
 					<fb:FilterBar useToolbar="false" showFilterConfiguration="false" search="onFilterGoPress" showClearOnFB="true" clear="onFilterClear">
@@ -90,8 +92,8 @@
 						</fb:filterItems>
 					</fb:FilterBar>
 				</l:VerticalLayout> -->
-				<ScrollContainer horizontal="true" vertical="true" height="65%">
-					<Table id="TableDataId" itemPress="onItempress" items="{DataModel>/results}" updateFinished="onupdateFinished" mode="SingleSelectMaster"
+				<ScrollContainer horizontal="true" vertical="true" height="100%">
+					<Table id="TableDataId" itemPress="onItempress" items="{DataModel>/results}" mode="SingleSelectMaster"
 						sticky="ColumnHeaders">
 						<columns>
 							<Column width="10rem" minScreenWidth="Tablet" demandPopin="true">

@@ -57,18 +57,18 @@ sap.ui.define([
 			//this.getView().byId("startDateId").setValue(this.curDate);
 			this.searhFilters = this.statusFilters = [];
 			var that = this;
-			this.oDataModel.read("/AsnSet?$filter=(StartDate eq '" + this.curDate + "'and EndDate eq '" + this.curDate + "')", null, null,
-				false,
-				function (oData) {
+			var oModel = this.getOwnerComponent().getModel();
+			oModel.read("/GetASNHeaderList",{
+				success : function (oData) {
 					that.DataModel.setData(oData);
 					that.DataModel.refresh();
 				},
-				function (oError) {
+				error: function (oError) {
 					sap.ui.core.BusyIndicator.hide();
 					var value = JSON.parse(oError.response.body);
 					MessageBox.error(value.error.message.value);
 				}
-			);
+		});
 
 			//var datePicker = this.getView().byId("startDateId");
 
