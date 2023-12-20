@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="baseDocNumF4Id" title="Reference Document Number" noDataText="No Reference Document Number Found" search="baseDocNumValueHelpSearch"
+		confirm="baseDocNumValueHelpClose">
+		<items>
+			<StandardListItem id="baseDocNumTempId" title="{BaseDocument}" description="{DocType}"/>
+		</items>
+	</SelectDialog>
+</core:FragmentDefinition>

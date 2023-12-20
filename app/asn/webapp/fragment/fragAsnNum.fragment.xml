@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="AsnNumF4Id" title="ASN Number" noDataText="No ASN Number Found" search="AsnValueHelpSearch" confirm="AsnValueHelpClose">
+		<items>
+			<StandardListItem id="AsnNumTempId" title="{AsnNumber}/{Year}"/>
+		</items>
+	</SelectDialog>
+</core:FragmentDefinition>

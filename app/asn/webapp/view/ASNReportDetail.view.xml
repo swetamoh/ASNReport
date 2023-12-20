@@ -1,0 +1,85 @@
+	<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="sap.fiori.asn.controller.ASNReportDetail"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt">
+	<Page id="pageId" title="ASN Detail" titleAlignment="Center" showHeader="true" showNavButton="true" navButtonPress="onNavPress">
+		<ObjectHeader class="object" id="ObjectHeaderId" title="{detailModel>/AsnNumber}/{detailModel>/Year}" number="{detailModel>/AsnStatusText}"
+			numberState="{path: 'detailModel>/AsnStatus', formatter: 'sap.fiori.asn.controller.formatter.checkStatus'}">
+			<attributes>
+				<ObjectAttribute title="Plant" text="{detailModel>/PlantDesc} ({detailModel>/Plant})"/>
+				<ObjectAttribute title="Created On"
+					text="{path:'detailModel>/CreatedOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"/>
+			</attributes>
+			<statuses>
+				<ObjectStatus text="{detailModel>/VendorInvoice}" title="Invoice No."/>
+				<ObjectStatus text="{detailModel>/NetAmount} {detailModel>/Currency}" title="Amount"/>
+			</statuses>
+		</ObjectHeader>
+		<content>
+		<ScrollContainer horizontal="true" vertical="true">
+			<Table id="TableDataId" selectionChange="onTableRowPress" mode="SingleSelectMaster" growing="true" growingScrollToLoad="true"
+				growingThreshold="20" updateStarted="onUpdateStart" sticky="ColumnHeaders">
+				<columns>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Material"/>
+					</Column>
+					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
+						<Label text="Challan No" />
+					</Column> -->
+					<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
+						<Label text="Amount" />
+					</Column>
+					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Qty" />
+					</Column> -->
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="IGST" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="CGST" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="SGST/UTGST" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+						<Label text="Item Schedule Line" />
+					</Column>
+					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Primary Bin" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Alternate Bin1" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Alternate Bin2" />
+					</Column> -->
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="PO Quantity" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Label text="Quality Status" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem id="tableTempId">
+						<cells>
+							<ObjectIdentifier text="{MaterialDesc}" title="{MaterialNo}"/>
+							<!-- <Text text="{ChallanNo}"/> -->
+							<tnt:InfoLabel text="{NetAmount} {Currency}" displayOnly="true" colorScheme="3"/>
+							<!-- <Text text="{AsnQuantity} {Uom}"/> -->
+							<Text text="{IgstAmount} {parts:['IgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
+							<Text text="{CgstAmount} {parts:['CgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
+							<Text text="{SgstAmount} {parts:['SgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
+							<Text text="{Itmshdline}"/>
+							<!-- <Text text="{PrimaryBIN}"/>
+							<Text text="{AlternateBin1}"/>
+							<Text text="{AlternateBin2}"/> -->
+							<Text text="{POqty}"/>
+							<ObjectStatus text="{QtyStatus}" state="{=${InvStatus} === 'Completed' ? 'Success' : 'Error' }"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			</ScrollContainer>
+		</content>
+	</Page>
+</mvc:View>
