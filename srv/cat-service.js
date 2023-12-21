@@ -6,8 +6,8 @@ module.exports = (srv) => {
     const { GetASNHeaderList } = srv.entities;
     
     srv.on('READ', GetASNHeaderList, async (req) => {
-        //const {AddressCode} = req._queryOptions
-        const AddressCode = 'PAI-01-03'
+        const {AddressCode} = req._queryOptions
+        //const AddressCode = 'PAI-01-03'
         const results = await getASNHeaderList(AddressCode);
         if (!results) throw new Error('Unable to fetch ASN Header List.');
         return results

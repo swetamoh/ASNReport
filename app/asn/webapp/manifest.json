@@ -33,6 +33,7 @@
           "action": "manage",
           "title": "{{flpTitle}}",
           "subTitle": "{{flpSubtitle}}",
+          "icon": "sap-icon://manager-insight",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"

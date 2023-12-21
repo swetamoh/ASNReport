@@ -2,7 +2,7 @@
 	controllerName="sap.fiori.asn.controller.ASNReportDetail"
 	xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt">
 	<Page id="pageId" title="ASN Detail" titleAlignment="Center" showHeader="true" showNavButton="true" navButtonPress="onNavPress">
-		<ObjectHeader class="object" id="ObjectHeaderId" title="{detailModel>/AsnNumber}/{detailModel>/Year}" number="{detailModel>/AsnStatusText}"
+		<!-- <ObjectHeader class="object" id="ObjectHeaderId" title="{detailModel>/AsnNumber}/{detailModel>/Year}" number="{detailModel>/AsnStatusText}"
 			numberState="{path: 'detailModel>/AsnStatus', formatter: 'sap.fiori.asn.controller.formatter.checkStatus'}">
 			<attributes>
 				<ObjectAttribute title="Plant" text="{detailModel>/PlantDesc} ({detailModel>/Plant})"/>
@@ -13,7 +13,7 @@
 				<ObjectStatus text="{detailModel>/VendorInvoice}" title="Invoice No."/>
 				<ObjectStatus text="{detailModel>/NetAmount} {detailModel>/Currency}" title="Amount"/>
 			</statuses>
-		</ObjectHeader>
+		</ObjectHeader> -->
 		<content>
 		<ScrollContainer horizontal="true" vertical="true">
 			<Table id="TableDataId" selectionChange="onTableRowPress" mode="SingleSelectMaster" growing="true" growingScrollToLoad="true"
