@@ -53,6 +53,17 @@ sap.ui.define([
 
                     // set the device model
                     this.setModel(models.createDeviceModel(), "device");
+                    var hardcodedURL = "https://impautosuppdev.launchpad.cfapps.ap10.hana.ondemand.com/c9020cdf-c24d-41d7-8a4e-76f5999268eb.asn.sapfioriasn-0.0.1/user-api/attributes";
+                    var site = window.location.href.includes("site");
+                    if (site) {
+                        $.ajax({
+                            url: hardcodedURL,
+                            type: "GET",
+                            success: res => {
+                                sessionStorage.setItem('AddressCode', res.login_name[0]);
+                            }
+                        });
+                    }
                 });
 
                 // odata request failed

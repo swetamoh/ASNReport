@@ -57,8 +57,9 @@ sap.ui.define([
 			//this.getView().byId("startDateId").setValue(this.curDate);
 			this.searhFilters = this.statusFilters = [];
 			var that = this;
+			this.AddressCode = sessionStorage.getItem("AddressCode") || 'PAI-01-03';
 			var oModel = this.getOwnerComponent().getModel();
-			oModel.read("/GetASNHeaderList",{
+			oModel.read("/GetASNHeaderList?AddressCode=" + this.AddressCode,{
 				success : function (oData) {
 					that.DataModel.setData(oData);
 					that.DataModel.refresh();

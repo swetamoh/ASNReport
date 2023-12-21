@@ -9,7 +9,7 @@
 |**Service Type**<br>Local Cap|
 |**Service URL**<br>http://localhost:4004/odata/v4/catalog/
 |**Module Name**<br>asn|
-|**Application Title**<br>Advance Shipping Note|
+|**Application Title**<br>ASN Report|
 |**Namespace**<br>sp.fiori|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.119.2|
