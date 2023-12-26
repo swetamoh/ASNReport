@@ -20,61 +20,136 @@
 				growingThreshold="20" updateStarted="onUpdateStart" sticky="ColumnHeaders">
 				<columns>
 					<Column demandPopin="true" width="12rem">
+						<Label text="Sch. Number"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Sch. Line Number"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Vendor Code"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Vendor Name"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
 						<Label text="Material"/>
 					</Column>
-					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
-						<Label text="Challan No" />
-					</Column> -->
+					<Column demandPopin="true" width="12rem">
+						<Label text="HSN Code"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Sch. Qty."/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Sch. Balance Qty."/>
+					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
 						<Label text="Amount" />
 					</Column>
-					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Qty" />
-					</Column> -->
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="IGST" />
+					<Column demandPopin="true" width="12rem">
+						<Label text="UOM"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Invoice Number"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Invoice Date"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Batch Number"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="CGST" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="SGST/UTGST" />
+						<Label text="CGA" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="SGST" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="SGA" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="IGST" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="IGA" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-						<Label text="Item Schedule Line" />
-					</Column>
-					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Primary Bin" />
+						<Label text="Other Charges" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Alternate Bin1" />
+						<Label text="Freight" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Alternate Bin2" />
-					</Column> -->
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="PO Quantity" />
+						<Label text="Packing" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true">
-						<Label text="Quality Status" />
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Line Value" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Packaging" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Weight in Kg." />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="GRN Entry Status" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="GRN Status" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Invoice Status" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Created By" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Created On" />
 					</Column>
 				</columns>
 				<items>
 					<ColumnListItem id="tableTempId">
 						<cells>
-							<ObjectIdentifier text="{MaterialDesc}" title="{MaterialNo}"/>
-							<!-- <Text text="{ChallanNo}"/> -->
-							<tnt:InfoLabel text="{NetAmount} {Currency}" displayOnly="true" colorScheme="3"/>
-							<!-- <Text text="{AsnQuantity} {Uom}"/> -->
-							<Text text="{IgstAmount} {parts:['IgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
+							<Text text="{ScheduleNumber}"/>
+							<Text text="{ScheduleLineNumber}"/>
+							<Text text="{VendorCode}"/>
+							<Text text="{VendorName}"/>
+							<ObjectIdentifier text="{MaterialName}" title="{MaterialCode}"/>
+							<Text text="{HSNCode}"/>
+							<Text text="{ScheduleQuantity}"/>
+							<Text text="{ScheduleBalancequantity}"/>
+							<tnt:InfoLabel text="{Price} {Currency}" displayOnly="true" colorScheme="3"/>
+							<Text text="{UOM}"/>
+							<Text text="{BillNumber}"/>
+							<Text text="{BillDate}"/>
+							<Text text="{BatchNumber}"/>
+							<!-- <Text text="{IgstAmount} {parts:['IgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
 							<Text text="{CgstAmount} {parts:['CgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
-							<Text text="{SgstAmount} {parts:['SgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
-							<Text text="{Itmshdline}"/>
-							<!-- <Text text="{PrimaryBIN}"/>
-							<Text text="{AlternateBin1}"/>
-							<Text text="{AlternateBin2}"/> -->
-							<Text text="{POqty}"/>
-							<ObjectStatus text="{QtyStatus}" state="{=${InvStatus} === 'Completed' ? 'Success' : 'Error' }"/>
+							<Text text="{SgstAmount} {parts:['SgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/> -->
+							<Text text="{CGST}"/>
+							 <Text text="{CGA}"/>
+							<Text text="{SGST}"/>
+							<Text text="{SGA}"/> 
+							<Text text="{IGST}"/>
+							<Text text="{IGA}"/>
+							 <Text text="{OtherCharges}"/>
+							<Text text="{Frieght}"/>
+							<Text text="{Packing}"/> 
+							<Text text="{LineValue}"/>
+							<Text text="{Packaging}"/>
+							<Text text="{WeightinKg}"/>
+							<ObjectStatus text="{GateEntryStatus}" state="{path:'GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+							<ObjectStatus text="{GRNStatus}" state="{path:'GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+							<ObjectStatus text="{InvoiceStatus}" state="{path:'InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+							
+							<!-- <ObjectStatus text="{GateEntryStatus}" state="{=${GateEntryStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"/>
+							<ObjectStatus text="{GRNStatus}" state="{=${GRNStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"/>
+							<ObjectStatus text="{InvoiceStatus}" state="{=${InvoiceStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"/> -->
+							<Text text="{CreatedBy}"/>
+							<Text text="{path:'CreatedBOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"/>
 						</cells>
 					</ColumnListItem>
 				</items>

@@ -133,10 +133,11 @@ sap.ui.define([
 
 		onItempress: function (oEvent) {
 			var data = oEvent.getParameter("listItem").getBindingContext("DataModel").getProperty();
-			this.detailModel.setData(data);
+			this.AsnNumber = data.ASNNumber.replace(/\//g,'-');
+			//this.detailModel.setData(data);
 			this.router.navTo("ASNReportDetail", {
-				"AsnNumber": data.AsnNumber,
-				"Year": data.Year
+				"AsnNumber": this.AsnNumber,
+				"AddressCode": this.AddressCode
 			});
 		},
 

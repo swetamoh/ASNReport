@@ -145,9 +145,12 @@
 									<Text text="{DataModel>PlantName} "></Text>
 									<Text text="{DataModel>VendorCode} "></Text>
 									<Text text="{DataModel>VendorName} "></Text>
-									<ObjectStatus text="{DataModel>GateEntryStatus}" state="{=${DataModel>GrStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
-									<ObjectStatus text="{DataModel>GRNStatus}" state="{=${DataModel>GrStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
-									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{=${DataModel>InvStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
+									<ObjectStatus text="{DataModel>GateEntryStatus}" state="{path:'DataModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<ObjectStatus text="{DataModel>GRNStatus}" state="{path:'DataModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{path:'DataModel>InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<!-- <ObjectStatus text="{DataModel>GateEntryStatus}" state="{=${DataModel>GateEntryStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"></ObjectStatus>
+									<ObjectStatus text="{DataModel>GRNStatus}" state="{=${DataModel>GRNStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
+									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{=${DataModel>InvoiceStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus> -->
 								</cells>
 							</ColumnListItem>
 						</items>

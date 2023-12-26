@@ -22,6 +22,20 @@ sap.fiori.asn.controller.formatter = {
 		}
 
 	},
+	Status: function (status) {
+        var state = "None";
+        if (status) {
+            switch (status) {
+                case "Completed":
+                case "COMPLETED":
+                    state = "Success";
+                    break;
+                default: state = "Error";
+                    break;
+            }
+        }
+        return state;
+    },
 	gstCurrency: function (amount, currency) {
 		if (amount) {
 			return currency;

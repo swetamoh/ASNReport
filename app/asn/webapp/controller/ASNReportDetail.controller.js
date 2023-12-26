@@ -15,13 +15,20 @@ sap.ui.define([
 		
 		handleRouteMatched: function(oEvent) {
 			if (oEvent.getParameter("name") === "ASNReportDetail") {
-				this.detailModel.refresh(true);
+				//this.detailModel.refresh(true);
 				var data = oEvent.getParameter("arguments");
-
-				this.getView().byId("pageId").setTitle("ASN Number - " + data.AsnNumber + "/" + data.Year);
+				this.AsnNumber = data.AsnNumber.replace(/-/g, '/');
+				this.getView().byId("pageId").setTitle("ASN Number - " + this.AsnNumber);
 
 				this.getView().byId("TableDataId").bindItems({
-					path: "/AsnItemSet?$filter=AsnNumber eq '" + data.AsnNumber + "' and Year eq '" + data.Year + "'",
+					path: "/GetASNDetailList",
+					parameters: {
+						custom: {
+							AddressCode: data.AddressCode,
+							ASNNumber: this.AsnNumber,
+						},
+						countMode: 'None'
+					},
 					template: this._tableTemp
 				});
 
