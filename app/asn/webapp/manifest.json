@@ -119,7 +119,7 @@
 					"targetControl": "appId",
 					"subroutes": [
 						{
-							"pattern": "detail/:AsnNumber:/:Year:",
+							"pattern": "detail/:AsnNumber:/:AddressCode:",
 							"name": "ASNReportDetail",
 							"view": "ASNReportDetail",
 							"targetAggregation": "pages"
