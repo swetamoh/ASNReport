@@ -6,8 +6,7 @@ module.exports = (srv) => {
     const { GetASNHeaderList, GetASNDetailList } = srv.entities;
     
     srv.on('READ', GetASNHeaderList, async (req) => {
-        //const {AddressCode} = req._queryOptions
-        const AddressCode = 'PAI-01-03'
+        const {AddressCode} = req._queryOptions
         const results = await getASNHeaderList(AddressCode);
         if (!results) throw new Error('Unable to fetch ASN Header List.');
         return results
@@ -15,9 +14,7 @@ module.exports = (srv) => {
     });
 
     srv.on('READ', GetASNDetailList, async (req) => {
-        //const {AddressCode, ASNNumber} = req._queryOptions
-        const AddressCode = 'PAI-01-03'
-        const ASNNumber = '22/01VASN/06648'
+        const {AddressCode, ASNNumber} = req._queryOptions
         const results = await getASNDetailList(AddressCode, ASNNumber);
         if (!results) throw new Error('Unable to fetch ASN Header List.');
         return results
