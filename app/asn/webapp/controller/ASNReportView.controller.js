@@ -27,13 +27,13 @@ sap.ui.define([
 			var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyyMMdd"
 			});
-			// this.curDate = new Date();
-			// this.startDate = new Date(this.curDate.getTime() - 30 * 24 * 3600 * 1000);
-			// this.getView().byId("endDateId").setMinDate(this.startDate);
-			// this.curDate = dateFormat.format(this.curDate);
-			// this.startDate = dateFormat.format(this.startDate);
-			// this.getView().byId("endDateId").setValue(this.curDate);
-			// this.getView().byId("startDateId").setValue(this.startDate);
+			this.curDate = new Date();
+			this.startDate = new Date(this.curDate.getTime() - 30 * 24 * 3600 * 1000);
+			this.getView().byId("endDateId").setMinDate(this.startDate);
+			this.curDate = dateFormat.format(this.curDate);
+			this.startDate = dateFormat.format(this.startDate);
+			this.getView().byId("endDateId").setValue(this.curDate);
+			this.getView().byId("startDateId").setValue(this.startDate);
 			// this.searhFilters = this.statusFilters = [];
 			// var that = this;
 			// this.oDataModel.read("/AsnSet?$filter=(StartDate eq '" + this.startDate + "'and EndDate eq '" + this.curDate + "')", null, null,
@@ -48,14 +48,14 @@ sap.ui.define([
 			// 		MessageBox.error(value.error.message.value);
 			// 	}
 			// );
-			this.curDate = new Date();
+			//this.curDate = new Date();
 			//this.endDate = new Date(this.curDate.getTime() + 30 * 24 * 3600 * 1000);
 			//this.getView().byId("endDateId").setMinDate(this.curDate);
-			this.curDate = dateFormat.format(this.curDate);
+			//this.curDate = dateFormat.format(this.curDate);
 			//this.endDate = dateFormat.format(this.endDate);
 			//this.getView().byId("endDateId").setValue(this.curDate);
 			//this.getView().byId("startDateId").setValue(this.curDate);
-			this.searhFilters = this.statusFilters = [];
+			//this.searhFilters = this.statusFilters = [];
 			var that = this;
 			this.AddressCode = sessionStorage.getItem("AddressCode") || 'PAI-01-03';
 			var oModel = this.getOwnerComponent().getModel();
@@ -71,36 +71,40 @@ sap.ui.define([
 				}
 		});
 
-			//var datePicker = this.getView().byId("startDateId");
+			var datePicker = this.getView().byId("startDateId");
 
-			// datePicker.addDelegate({
-			// 	onAfterRendering: function () {
-			// 		datePicker.$().find('INPUT').attr('disabled', true).css('color', '#000000');
-			// 	}
-			// }, datePicker);
+			datePicker.addDelegate({
+				onAfterRendering: function () {
+					datePicker.$().find('INPUT').attr('disabled', true).css('color', '#000000');
+				}
+			}, datePicker);
 
-			// datePicker = this.getView().byId("endDateId");
+			datePicker = this.getView().byId("endDateId");
 
-			// datePicker.addDelegate({
-			// 	onAfterRendering: function () {
-			// 		datePicker.$().find('INPUT').attr('disabled', true).css('color', '#000000');
-			// 	}
-			// }, datePicker);
+			datePicker.addDelegate({
+				onAfterRendering: function () {
+					datePicker.$().find('INPUT').attr('disabled', true).css('color', '#000000');
+				}
+			}, datePicker);
 		},
 		onFilterClear: function () {
 			var data = this.localModel.getData();
-			data.VendorInvoice = "";
-			data.BaseDocument = "";
-			data.AsnNumber = "";
-			data.Material = "";
+			data.ASNNumber = "";
+			data.PONumber = "";
 			data.Supplier = "";
-			data.Plant = "";
+			data.CreateStartDate = "";
+			data.CreateEndDate = "";
+			data.InvoiceStatus = "";
+			data.GRNStatus = "";
 			this.localModel.refresh(true);
-			this.byId("selectFilterId").setText();
-			// var oView = this.getView();
-			// oView.byId("vendorNumId").setValue("");
-			// oView.byId("baseDocId").setValue("");
-			// oView.byId("AsnNumId").setValue("");
+			var oView = this.getView();
+			oView.byId("asnnumId").setValue("");
+			oView.byId("ponumId").setValue("");
+			oView.byId("vendorCodeId").setValue("");
+			oView.byId("createstartDateId").setValue("");
+			oView.byId("createendDateId").setValue("");
+			oView.byId("invoicestatusid").setSelectedKey("");
+			oView.byId("grnstatusid").setSelectedKey("");
 		},
 
 		onFilterGoPress: function () {
@@ -741,6 +745,15 @@ sap.ui.define([
 			this.getView().byId("endDateId").setMinDate(FromDate);
 			if (ToDate <= FromDate) {
 				this.getView().byId("endDateId").setDateValue(new Date(FromDate));
+			}
+			oEvent.getSource().$().find('INPUT').attr('disabled', true).css('color', '#000000');
+		},
+		onCreateFromDateChange: function (oEvent) {
+			var FromDate = this.getView().byId("createstartDateId").getDateValue();
+			var ToDate = this.getView().byId("createendDateId").getDateValue();
+			this.getView().byId("createendDateId").setMinDate(FromDate);
+			if (ToDate <= FromDate) {
+				this.getView().byId("createendDateId").setDateValue(new Date(FromDate));
 			}
 			oEvent.getSource().$().find('INPUT').attr('disabled', true).css('color', '#000000');
 		}
