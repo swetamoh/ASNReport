@@ -63,6 +63,8 @@ sap.ui.define([
                             success: res => {
                                 if( res.login_name[0] !==  res.email){
                                 sessionStorage.setItem('AddressCode', res.login_name[0]);
+                                }else {
+                                    sessionStorage.setItem('AddressCode', 'ATE-01-01');
                                 }
                             }
                         });
