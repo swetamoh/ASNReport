@@ -27,6 +27,9 @@ sap.ui.define([
 			var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyyMMdd"
 			});
+			var dateFormat1 = sap.ui.core.format.DateFormat.getDateInstance({
+				pattern: "ddMMMyyyy"
+			});
 			this.curDate = new Date();
 			this.startDate = new Date(this.curDate.getTime() - 30 * 24 * 3600 * 1000);
 			this.getView().byId("endDateId").setMinDate(this.startDate);
@@ -34,6 +37,12 @@ sap.ui.define([
 			this.startDate = dateFormat.format(this.startDate);
 			this.getView().byId("endDateId").setValue(this.curDate);
 			this.getView().byId("startDateId").setValue(this.startDate);
+			this.ASNtodate = new Date();
+			this.ASNfromdate = new Date(this.ASNtodate.getTime() - 30 * 24 * 3600 * 1000);
+			this.ASNtodate = dateFormat1.format(this.ASNtodate);
+			this.ASNfromdate = dateFormat1.format(this.ASNfromdate);
+			this.ASNtodate = this.ASNtodate.substring(0, 2) + " " + this.ASNtodate.substring(2, 5) + " " + this.ASNtodate.substring(5, 9);
+			this.ASNfromdate = this.ASNfromdate.substring(0, 2) + " " + this.ASNfromdate.substring(2, 5) + " " + this.ASNfromdate.substring(5, 9);
 			// this.searhFilters = this.statusFilters = [];
 			// var that = this;
 			// this.oDataModel.read("/AsnSet?$filter=(StartDate eq '" + this.startDate + "'and EndDate eq '" + this.curDate + "')", null, null,
@@ -56,10 +65,22 @@ sap.ui.define([
 			//this.getView().byId("endDateId").setValue(this.curDate);
 			//this.getView().byId("startDateId").setValue(this.curDate);
 			//this.searhFilters = this.statusFilters = [];
+			this.ASNfromdate = '13 MAR 2023';
+			this.ASNtodate = '14 MAR 2023';
 			var that = this;
-			this.AddressCode = sessionStorage.getItem("AddressCode") || 'PAI-01-03';
+			this.AddressCode = sessionStorage.getItem("AddressCode") || 'ATE-01-01';
 			var oModel = this.getOwnerComponent().getModel();
-			oModel.read("/GetASNHeaderList?AddressCode=" + this.AddressCode,{
+			oModel.read("/GetASNHeaderList" ,{
+				urlParameters: {
+					AddressCode: this.AddressCode,
+					PoNumber: '',
+					ASNNumber: '',
+					ASNFromdate: this.ASNfromdate,
+					ASNTodate: this.ASNtodate,
+					InvoiceStatus: '',
+					MRNStatus: '',
+					ApprovedBy: ''
+				},
 				success : function (oData) {
 					that.DataModel.setData(oData);
 					that.DataModel.refresh();
@@ -91,7 +112,7 @@ sap.ui.define([
 			var data = this.localModel.getData();
 			data.ASNNumber = "";
 			data.PONumber = "";
-			data.Supplier = "";
+			data.VendorCode = "";
 			data.CreateStartDate = "";
 			data.CreateEndDate = "";
 			data.InvoiceStatus = "";
@@ -108,31 +129,87 @@ sap.ui.define([
 		},
 
 		onFilterGoPress: function () {
+			sap.ui.core.BusyIndicator.show();
 			var that = this;
 			var data = this.localModel.getData();
-			var path = "/AsnSet?$filter=";
-			Object.keys(data).forEach(function (key, index) {
-				if (data[key]) {
-					if (index > 0) {
-						path += " and ";
-					}
-					path += key + " eq '" + data[key] + "'";
-				}
+			var oModel = this.getOwnerComponent().getModel();
+			var dateFormat1 = sap.ui.core.format.DateFormat.getDateInstance({
+				pattern: "ddMMMyyyy"
 			});
-
-			this.oDataModel.read(path, null, null, false,
-				function (oData) {
+			
+			this.EndDate = this.getView().byId("endDateId").getDateValue();
+			this.StartDate = this.getView().byId("startDateId").getDateValue();
+			this.EndDate = dateFormat1.format(this.EndDate);
+			this.StartDate = dateFormat1.format(this.StartDate);
+			this.EndDate = this.EndDate.substring(0, 2) + " " + this.EndDate.substring(2, 5) + " " + this.EndDate.substring(5, 9);
+			this.StartDate = this.StartDate.substring(0, 2) + " " + this.StartDate.substring(2, 5) + " " + this.StartDate.substring(5, 9);
+			
+			if(!data.ASNNumber){
+				data.ASNNumber = "";
+			}
+			if(!data.PONumber){
+				data.PONumber = "";
+			}
+			if(!data.VendorCode){
+				this.VendorCode = this.AddressCode;
+			}else if(data.VendorCode){
+				this.VendorCode = data.VendorCode;
+			}
+			if(!data.CreatedBy){
+				data.CreatedBy = "";
+			}
+			if(!data.InvoiceStatus){
+				data.InvoiceStatus = "";
+			}
+			if(!data.GRNStatus){
+				data.GRNStatus = "";
+			}
+			
+			oModel.read("/GetASNHeaderList" ,{
+				urlParameters: {
+					AddressCode: this.VendorCode,
+					PoNumber: data.PONumber,
+					ASNNumber: data.ASNNumber,
+					ASNFromdate: this.StartDate,
+					ASNTodate: this.EndDate,
+					InvoiceStatus: data.InvoiceStatus,
+					MRNStatus: data.GRNStatus,
+					ApprovedBy: data.CreatedBy
+				},
+				success : function (oData) {
+					sap.ui.core.BusyIndicator.hide();
 					that.DataModel.setData(oData);
 					that.DataModel.refresh();
-					that.getView().byId("TableDataId").getBinding("items").filter();
-					that.byId("selectFilterId").setText();
 				},
-				function (oError) {
+				error: function (oError) {
 					sap.ui.core.BusyIndicator.hide();
 					var value = JSON.parse(oError.response.body);
 					MessageBox.error(value.error.message.value);
-				});
-			this.StatusFlag = false;
+				}
+		});
+			//var path = "/AsnSet?$filter=";
+			// Object.keys(data).forEach(function (key, index) {
+			// 	if (data[key]) {
+			// 		if (index > 0) {
+			// 			path += " and ";
+			// 		}
+			// 		path += key + " eq '" + data[key] + "'";
+			// 	}
+			// });
+
+			// this.oDataModel.read(path, null, null, false,
+			// 	function (oData) {
+			// 		that.DataModel.setData(oData);
+			// 		that.DataModel.refresh();
+			// 		that.getView().byId("TableDataId").getBinding("items").filter();
+			// 		that.byId("selectFilterId").setText();
+			// 	},
+			// 	function (oError) {
+			// 		sap.ui.core.BusyIndicator.hide();
+			// 		var value = JSON.parse(oError.response.body);
+			// 		MessageBox.error(value.error.message.value);
+			// 	});
+			// this.StatusFlag = false;
 		},
 
 		onItempress: function (oEvent) {
