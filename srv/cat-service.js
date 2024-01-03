@@ -6,10 +6,7 @@ module.exports = (srv) => {
     const { GetASNHeaderList, GetASNDetailList } = srv.entities;
     
     srv.on('READ', GetASNHeaderList, async (req) => {
-        //const {AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate, InvoiceStatus, MRNStatus, ApprovedBy } = req._queryOptions
         const params = req._queryOptions
-        
-        //const results = await getASNHeaderList(AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate, InvoiceStatus, MRNStatus, ApprovedBy);
         const results = await getASNHeaderList(params);
         if (!results) throw new Error('Unable to fetch ASN Header List.');
         return results
