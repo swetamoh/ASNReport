@@ -17,9 +17,9 @@
 									<Input id="ponumId" value="{localModel>/PONumber}"/>
 								</fb:control>
 							</fb:FilterItem>
-							<fb:FilterItem name="C" label="Supplier">
+							<fb:FilterItem name="C" label="Vendor Code">
 								<fb:control>
-									<Input id="vendorCodeId" value="{localModel>/Supplier}"/>
+									<Input id="vendorCodeId" value="{localModel>/VendorCode}"/>
 								</fb:control>
 							</fb:FilterItem>
 							<fb:FilterItem name="D" label="ASN Start Date" mandatory="true">
@@ -27,22 +27,17 @@
 									<DatePicker id="startDateId" valueFormat="yyyyMMdd" value="{localModel>/StartDate}" class="disablekb" change="onFromDateChange"/>
 								</fb:control>
 							</fb:FilterItem>
-							<fb:FilterItem name="E" label="End Date" mandatory="true">
+							<fb:FilterItem name="E" label="ASN End Date" mandatory="true">
 								<fb:control>
 									<DatePicker id="endDateId" valueFormat="yyyyMMdd" value="{localModel>/EndDate}" class="disablekb"/>
 								</fb:control>
 							</fb:FilterItem>
-							<fb:FilterItem name="F" label="Created On Start Date">
+							<fb:FilterItem name="F" label="Created By">
 								<fb:control>
-									<DatePicker id="createstartDateId" valueFormat="yyyyMMdd" value="{localModel>/CreateStartDate}" class="disablekb" change="onCreateFromDateChange"/>
+									<Input id="createById" value="{localModel>/CreatedBy}"/>
 								</fb:control>
 							</fb:FilterItem>
-							<fb:FilterItem name="G" label="Created On End Date">
-								<fb:control>
-									<DatePicker id="createendDateId" valueFormat="yyyyMMdd" value="{localModel>/CreateEndDate}" class="disablekb"/>
-								</fb:control>
-							</fb:FilterItem>
-							<fb:FilterItem name="H" label="Invoice Status">
+							<fb:FilterItem name="G" label="Invoice Status">
 								<fb:control>
 									<Select id="invoicestatusid" forceSelection="false" selectedKey="{localModel>/InvoiceStatus}">
                							<core:Item id="_IDGenItem1" key="Pending" text="Pending"/>
@@ -109,8 +104,8 @@
 								<cells>
 									<ObjectIdentifier title="{DataModel>ASNNumber}"></ObjectIdentifier>
 									<Text text="{path:'DataModel>ASNDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>
-									<Text text="{DataModel>CreatedBy}"/>
-									<Text text="{path:'DataModel>CreatedBOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>	
+									<Text text="{DataModel>ApprovedBy}"/>
+									<Text text="{path:'DataModel>ApprovedDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>	
 									<Text text="{DataModel>PoNumber} "></Text>
 									<Text text="{DataModel>PlantCode} "></Text>
 									<Text text="{DataModel>PlantName} "></Text>
