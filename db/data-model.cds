@@ -3,8 +3,8 @@ namespace my.bookshop;
 entity GetASNHeaderList{
   key ASNNumber : String;
   ASNDate  : String;
-  CreatedBy: String;
-  CreatedBOn: String;
+  ApprovedBy: String;
+  ApprovedDate: String;
   PoNumber: String;
   PlantCode: String;
   PlantName: String;
