@@ -6,8 +6,11 @@ module.exports = (srv) => {
     const { GetASNHeaderList, GetASNDetailList } = srv.entities;
     
     srv.on('READ', GetASNHeaderList, async (req) => {
-        const {AddressCode} = req._queryOptions
-        const results = await getASNHeaderList(AddressCode);
+        //const {AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate, InvoiceStatus, MRNStatus, ApprovedBy } = req._queryOptions
+        const params = req._queryOptions
+        
+        //const results = await getASNHeaderList(AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate, InvoiceStatus, MRNStatus, ApprovedBy);
+        const results = await getASNHeaderList(params);
         if (!results) throw new Error('Unable to fetch ASN Header List.');
         return results
 
@@ -22,11 +25,16 @@ module.exports = (srv) => {
     });
 };
 
-async function getASNHeaderList(AddressCode) {
+async function getASNHeaderList(params) {
     try {
+        const {
+            AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate,
+            InvoiceStatus, MRNStatus, ApprovedBy
+        } = params;
+        const url = `https://imperialauto.co:84/IAIAPI.asmx/GetASNHeaderList?RequestBy='Manikandan'&AddressCode='${AddressCode}'&PoNumber='${PoNumber}'&ASNNumber='${ASNNumber}'&ASNFromdate='${ASNFromdate}'&ASNTodate='${ASNTodate}'&InvoiceStatus='${InvoiceStatus}'&MRNStatus='${MRNStatus}'&ApprovedBy='${ApprovedBy}'`;
         const response = await axios({
             method: 'get',
-            url: `https://imperialauto.co:84/IAIAPI.asmx/GetASNHeaderList?RequestBy='Manikandan'&AddressCode='${AddressCode}'`,
+            url: url,
             headers: {
                 'Authorization': 'Bearer IncMpsaotdlKHYyyfGiVDg==',
                 'Content-Type': 'application/json'
