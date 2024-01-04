@@ -40,18 +40,18 @@
 							<fb:FilterItem name="G" label="Invoice Status">
 								<fb:control>
 									<Select id="invoicestatusid" forceSelection="false" selectedKey="{localModel>/InvoiceStatus}">
-               							<core:Item id="_IDGenItem1" key="Pending" text="Pending"/>
-               							<core:Item id="_IDGenItem2" key="Partially" text="Partially"/>
-                						<core:Item id="_IDGenItem3" key="Completed" text="Completed"/>
+               							<core:Item id="_IDGenItem1" key="PENDING" text="PENDING"/>
+               							<core:Item id="_IDGenItem2" key="PARTIALLY" text="PARTIALLY"/>
+                						<core:Item id="_IDGenItem3" key="COMPLETED" text="COMPLETED"/>
             						</Select>
 								</fb:control>
 							</fb:FilterItem>
 							<fb:FilterItem name="I" label="GRN Status">
 								<fb:control>
 									<Select id="grnstatusid" forceSelection="false" selectedKey="{localModel>/GRNStatus}">
-               							<core:Item id="_IDGenItem4" key="Pending" text="Pending"/>
-               							<core:Item id="_IDGenItem5" key="Partially" text="Partially"/>
-                						<core:Item id="_IDGenItem6" key="Completed" text="Completed"/>
+               							<core:Item id="_IDGenItem4" key="PENDING" text="PENDING"/>
+               							<core:Item id="_IDGenItem5" key="PARTIALLY" text="PARTIALLY"/>
+                						<core:Item id="_IDGenItem6" key="COMPLETED" text="COMPLETED"/>
             						</Select>
 								</fb:control>
 							</fb:FilterItem>
