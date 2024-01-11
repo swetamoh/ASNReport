@@ -31,14 +31,16 @@ sap.ui.define([
 				pattern: "ddMMMyyyy"
 			});
 			this.curDate = new Date();
-			this.startDate = new Date(this.curDate.getTime() - 30 * 24 * 3600 * 1000);
+			//this.startDate = new Date(this.curDate.getTime() - 30 * 24 * 3600 * 1000);
+			this.startDate = new Date();
 			this.getView().byId("endDateId").setMinDate(this.startDate);
 			this.curDate = dateFormat.format(this.curDate);
 			this.startDate = dateFormat.format(this.startDate);
 			this.getView().byId("endDateId").setValue(this.curDate);
 			this.getView().byId("startDateId").setValue(this.startDate);
 			this.ASNtodate = new Date();
-			this.ASNfromdate = new Date(this.ASNtodate.getTime() - 30 * 24 * 3600 * 1000);
+			//this.ASNfromdate = new Date(this.ASNtodate.getTime() - 30 * 24 * 3600 * 1000);
+			this.ASNfromdate = new Date();
 			this.ASNtodate = dateFormat1.format(this.ASNtodate);
 			this.ASNfromdate = dateFormat1.format(this.ASNfromdate);
 			this.ASNtodate = this.ASNtodate.substring(0, 2) + " " + this.ASNtodate.substring(2, 5) + " " + this.ASNtodate.substring(5, 9);
@@ -65,10 +67,10 @@ sap.ui.define([
 			//this.getView().byId("endDateId").setValue(this.curDate);
 			//this.getView().byId("startDateId").setValue(this.curDate);
 			//this.searhFilters = this.statusFilters = [];
-			this.ASNfromdate = '13 MAR 2023';
-			this.ASNtodate = '14 MAR 2023';
+			//this.ASNfromdate = '13 MAR 2023';
+			//this.ASNtodate = '14 MAR 2023';
 			var that = this;
-			this.AddressCode = sessionStorage.getItem("AddressCode") || 'ATE-01-01';
+			this.AddressCode = sessionStorage.getItem("AddressCode") || 'GKE-01-01';
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.read("/GetASNHeaderList" ,{
 				urlParameters: {

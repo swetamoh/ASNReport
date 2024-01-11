@@ -1,24 +1,137 @@
 	<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
-	controllerName="sap.fiori.asn.controller.ASNReportDetail"
+	controllerName="sap.fiori.asn.controller.ASNReportDetail" xmlns:f="sap.ui.layout.form" xmlns:upload="sap.m.upload"
 	xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt">
 	<Page id="pageId" title="ASN Detail" titleAlignment="Center" showHeader="true" showNavButton="true" navButtonPress="onNavPress">
-		<!-- <ObjectHeader class="object" id="ObjectHeaderId" title="{detailModel>/AsnNumber}/{detailModel>/Year}" number="{detailModel>/AsnStatusText}"
-			numberState="{path: 'detailModel>/AsnStatus', formatter: 'sap.fiori.asn.controller.formatter.checkStatus'}">
+		<ObjectHeader class="object" id="ObjectHeaderId" title="">
 			<attributes>
-				<ObjectAttribute title="Plant" text="{detailModel>/PlantDesc} ({detailModel>/Plant})"/>
-				<ObjectAttribute title="Created On"
-					text="{path:'detailModel>/CreatedOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"/>
-			</attributes>
-			<statuses>
-				<ObjectStatus text="{detailModel>/VendorInvoice}" title="Invoice No."/>
-				<ObjectStatus text="{detailModel>/NetAmount} {detailModel>/Currency}" title="Amount"/>
-			</statuses>
-		</ObjectHeader> -->
+				<ObjectAttribute title="Plant" text=""/>
+				</attributes>
+			</ObjectHeader>
 		<content>
+		<f:SimpleForm
+            id="AsnFormId"
+            editable="true"
+            layout="ColumnLayout"
+            columnsM="2"
+            columnsL="2"
+            columnsXL="4"
+        >
+            <f:content>
+                <Label
+                    id="_IDGenLabel16"
+                    text=" Address Code"
+                />
+                <Text
+                    id="AddressCodeid"
+                    text=""
+                    width="185px"
+                />
+                <Label
+                    id="_IDGenLabel1"
+                    text=" Invoice Number"
+                    textAlign="Center"
+                />
+                <Text
+                    id="_IDGenInput1"
+                    text=""
+                    width="185px"
+                />
+                <Label
+                    id="_IDGenLabel2"
+                    text="Invoice Date"
+                />
+                <Text
+                    id="DP1"
+                    text=""
+                    width="185px"
+                />
+                <Label text="GRR/Docket No" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+                <Label text="GRR/Docket Date" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+                <Label text="Transport Name" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+                <Label text="Transport Mode" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+                <Label text="EWAY Bill No" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+                <Label text="EWAY Bill Date" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+                <Label text="Mill T.C. No" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+                <Label text="Mill Name" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+                <Label
+                    id="_IDGenLabel4"
+                    text="PDIR No"
+                />
+                <Text
+                    id="_IDGenInput4"
+                    text=""
+                    width="185px"
+                />
+                <Label
+                    id="_IDGenLabel18"
+                    text="Heat No"
+                />
+                <Text
+                    id="_IDGenInput8"
+                    text=""
+                    width="185px"
+                />
+                <Label
+                    id="_IDGenLabel19"
+                    text="Batch Code"
+                />
+                <Text
+                    id="_IDGenInput9"
+                    text=""
+                    width="185px"
+                />
+                <Label text="Manf. Month" />
+                <Text
+                    text=""
+                    width="185px"
+                />
+            </f:content>
+        </f:SimpleForm>
+		<IconTabBar id="_IDGenIconTabBar1">
+            <items>
+                <IconTabFilter
+                    id="_IDGenIconTabFilter1"
+                    icon="sap-icon://hint"
+                >
 		<ScrollContainer horizontal="true" vertical="true">
-			<Table id="TableDataId" selectionChange="onTableRowPress" mode="SingleSelectMaster" growing="true" growingScrollToLoad="true"
+			<Table id="TableDataId" items="{detailModel>/results}" selectionChange="onTableRowPress" mode="SingleSelectMaster" growing="true" growingScrollToLoad="true"
 				growingThreshold="20" updateStarted="onUpdateStart" sticky="ColumnHeaders">
 				<columns>
+					<Column demandPopin="true" width="12rem">
+						<Label text="Bill Line No"/>
+					</Column>
 					<Column demandPopin="true" width="12rem">
 						<Label text="Sch. Number"/>
 					</Column>
@@ -30,6 +143,9 @@
 					</Column>
 					<Column demandPopin="true" width="12rem">
 						<Label text="Vendor Name"/>
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="PO No"/>
 					</Column>
 					<Column demandPopin="true" width="12rem">
 						<Label text="Material"/>
@@ -59,22 +175,22 @@
 						<Label text="Batch Number"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="CGST" />
+						<Label text="CGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="CGA" />
+						<Label text="CGST Amt" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="SGST" />
+						<Label text="SGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="SGA" />
+						<Label text="SGST Amt" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="IGST" />
+						<Label text="IGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="IGA" />
+						<Label text="IGST Amt" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
 						<Label text="Other Charges" />
@@ -113,48 +229,98 @@
 				<items>
 					<ColumnListItem id="tableTempId">
 						<cells>
-							<Text text="{ScheduleNumber}"/>
-							<Text text="{ScheduleLineNumber}"/>
-							<Text text="{VendorCode}"/>
-							<Text text="{VendorName}"/>
-							<ObjectIdentifier text="{MaterialName}" title="{MaterialCode}"/>
-							<Text text="{HSNCode}"/>
-							<Text text="{ScheduleQuantity}"/>
-							<Text text="{ScheduleBalancequantity}"/>
-							<tnt:InfoLabel text="{Price} {Currency}" displayOnly="true" colorScheme="3"/>
-							<Text text="{UOM}"/>
-							<Text text="{BillNumber}"/>
-							<Text text="{BillDate}"/>
-							<Text text="{BatchNumber}"/>
+							<Text text=""/>
+							<Text text="{detailModel>ScheduleNumber}"/>
+							<Text text="{detailModel>ScheduleLineNumber}"/>
+							<Text text="{detailModel>VendorCode}"/>
+							<Text text="{detailModel>VendorName}"/>
+							<Text text=""/>
+							<ObjectIdentifier text="{detailModel>MaterialName}" title="{detailModel>MaterialCode}"/>
+							<Text text="{detailModel>HSNCode}"/>
+							<Text text="{detailModel>ScheduleQuantity}"/>
+							<Text text="{detailModel>ScheduleBalancequantity}"/>
+							<tnt:InfoLabel text="{detailModel>Price} {detailModel>Currency}" displayOnly="true" colorScheme="3"/>
+							<Text text="{detailModel>UOM}"/>
+							<Text text="{detailModel>BillNumber}"/>
+							<Text text="{detailModel>BillDate}"/>
+							<Text text="{detailModel>BatchNumber}"/>
 							<!-- <Text text="{IgstAmount} {parts:['IgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
 							<Text text="{CgstAmount} {parts:['CgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
 							<Text text="{SgstAmount} {parts:['SgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/> -->
-							<Text text="{CGST}"/>
-							 <Text text="{CGA}"/>
-							<Text text="{SGST}"/>
-							<Text text="{SGA}"/> 
-							<Text text="{IGST}"/>
-							<Text text="{IGA}"/>
-							 <Text text="{OtherCharges}"/>
-							<Text text="{Frieght}"/>
-							<Text text="{Packing}"/> 
-							<Text text="{LineValue}"/>
-							<Text text="{Packaging}"/>
-							<Text text="{WeightinKg}"/>
-							<ObjectStatus text="{GateEntryStatus}" state="{path:'GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
-							<ObjectStatus text="{GRNStatus}" state="{path:'GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
-							<ObjectStatus text="{InvoiceStatus}" state="{path:'InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+							<Text text="{detailModel>CGST}"/>
+							 <Text text="{detailModel>CGA}"/>
+							<Text text="{detailModel>SGST}"/>
+							<Text text="{detailModel>SGA}"/> 
+							<Text text="{detailModel>IGST}"/>
+							<Text text="{detailModel>IGA}"/>
+							 <Text text="{detailModel>OtherCharges}"/>
+							<Text text="{detailModel>Frieght}"/>
+							<Text text="{detailModel>Packing}"/> 
+							<Text text="{detailModel>LineValue}"/>
+							<Text text="{detailModel>Packaging}"/>
+							<Text text="{detailModel>WeightinKg}"/>
+							<ObjectStatus text="{detailModel>GateEntryStatus}" state="{path:'detailModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+							<ObjectStatus text="{detailModel>GRNStatus}" state="{path:'detailModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+							<ObjectStatus text="{detailModel>InvoiceStatus}" state="{path:'detailModel>InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 							
 							<!-- <ObjectStatus text="{GateEntryStatus}" state="{=${GateEntryStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"/>
 							<ObjectStatus text="{GRNStatus}" state="{=${GRNStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"/>
 							<ObjectStatus text="{InvoiceStatus}" state="{=${InvoiceStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"/> -->
-							<Text text="{CreatedBy}"/>
-							<Text text="{path:'CreatedBOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"/>
+							<Text text="{detailModel>CreatedBy}"/>
+							<Text text="{path:'detailModel>CreatedBOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"/>
 						</cells>
 					</ColumnListItem>
 				</items>
 			</Table>
 			</ScrollContainer>
+			</IconTabFilter>
+                <IconTabFilter
+                    id="_IDGenIconTabFilter2"
+                    icon="sap-icon://attachment"
+                >
+                <!-- <upload:UploadSet
+					id="uploadSet"
+					instantUpload="false"
+					uploadEnabled="true"
+                    afterItemAdded="onAfterItemAdded"
+					uploadCompleted="onUploadCompleted"
+				>
+					
+					<upload:toolbar>
+					</upload:toolbar>
+					<upload:items>
+						<upload:UploadSetItem
+							fileName="{fileName}"
+							mediaType="{mediaType}"
+							url="{url}"
+							enabledEdit="false"
+							visibleEdit="false"
+							openPressed="onOpenPressed"
+						>
+                        
+							<upload:attributes>
+								<ObjectAttribute
+									title="Uploaded By"
+									text="{createdBy}"
+									active="false"
+								/>
+								<ObjectAttribute
+									title="Uploaded on"
+									text="{createdAt}"
+									active="false"
+								/>
+								<ObjectAttribute
+									title="File Size"
+									text="{size}"
+									active="false"
+								/>
+							</upload:attributes>
+						</upload:UploadSetItem>
+					</upload:items>
+				</upload:UploadSet> -->
+                 </IconTabFilter> 
+            </items>
+        </IconTabBar>
 		</content>
 	</Page>
 </mvc:View>

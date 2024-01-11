@@ -7,8 +7,11 @@ sap.ui.define([
 
 		onInit: function() {
 			this._tableTemp = this.getView().byId("tableTempId").clone();
-			this.detailModel = sap.ui.getCore().getModel("detailModel");
+			this.detailModel = new sap.ui.model.json.JSONModel();
+			this.detailModel.setSizeLimit(10000000);
 			this.getView().setModel(this.detailModel, "detailModel");
+			// this.detailModel = sap.ui.getCore().getModel("detailModel");
+			// this.getView().setModel(this.detailModel, "detailModel");
 			this.router = sap.ui.core.UIComponent.getRouterFor(this);
 			this.router.attachRouteMatched(this.handleRouteMatched, this);
 		},
@@ -16,21 +19,38 @@ sap.ui.define([
 		handleRouteMatched: function(oEvent) {
 			if (oEvent.getParameter("name") === "ASNReportDetail") {
 				//this.detailModel.refresh(true);
+				var that = this;
 				var data = oEvent.getParameter("arguments");
 				this.AsnNumber = data.AsnNumber.replace(/-/g, '/');
 				this.getView().byId("pageId").setTitle("ASN Number - " + this.AsnNumber);
+				var oModel = this.getOwnerComponent().getModel();
+				oModel.read("/GetASNDetailList" ,{
+				urlParameters: {
+					AddressCode: data.AddressCode,
+					ASNNumber: this.AsnNumber,
+				},
+				success : function (oData) {
+					that.detailModel.setData(oData);
+					that.detailModel.refresh();
+				},
+				error: function (oError) {
+					sap.ui.core.BusyIndicator.hide();
+					var value = JSON.parse(oError.response.body);
+					MessageBox.error(value.error.message.value);
+				}
+		});
 
-				this.getView().byId("TableDataId").bindItems({
-					path: "/GetASNDetailList",
-					parameters: {
-						custom: {
-							AddressCode: data.AddressCode,
-							ASNNumber: this.AsnNumber,
-						},
-						countMode: 'None'
-					},
-					template: this._tableTemp
-				});
+				// this.getView().byId("TableDataId").bindItems({
+				// 	path: "/GetASNDetailList",
+				// 	parameters: {
+				// 		custom: {
+				// 			AddressCode: data.AddressCode,
+				// 			ASNNumber: this.AsnNumber,
+				// 		},
+				// 		countMode: 'None'
+				// 	},
+				// 	template: this._tableTemp
+				// });
 
 			}
 		},
