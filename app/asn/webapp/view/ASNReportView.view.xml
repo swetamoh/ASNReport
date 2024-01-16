@@ -19,7 +19,7 @@
 							</fb:FilterItem>
 							<fb:FilterItem name="C" label="Vendor Code">
 								<fb:control>
-									<Input id="vendorCodeId" value="{localModel>/VendorCode}"/>
+									<Input id="vendorCodeId" value="{localModel>/VendorCode}" enabled="false"/>
 								</fb:control>
 							</fb:FilterItem>
 							<fb:FilterItem name="D" label="ASN Start Date" mandatory="true">
@@ -58,17 +58,17 @@
 						</fb:filterItems>
 					</fb:FilterBar>
 				</l:VerticalLayout> 
-				<ScrollContainer horizontal="true" vertical="true" height="100%">
+				<ScrollContainer horizontal="true" height="100%">
 					<Table id="TableDataId" itemPress="onItempress" items="{DataModel>/results}" mode="SingleSelectMaster"
 						sticky="ColumnHeaders">
 						<columns>
 							<Column width="10rem" minScreenWidth="Tablet" demandPopin="true">
 								<Text text="ASN Number"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
+							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="ASN Date"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Created By"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
@@ -76,18 +76,6 @@
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
 								<Text text="PO Number"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-								<Text text="Plant Code"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-								<Text text="Plant Name"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-								<Text text="Vendor Code"/>
-							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-								<Text text="Vendor Name"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Gate Entry Status"/>
@@ -98,6 +86,18 @@
 							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Invoice Status"/>
 							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Plant Code"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Plant Name"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Vendor Code"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="Vendor Name"/>
+							</Column>
 						</columns>
 						<items>
 							<ColumnListItem id="tableTempId" type="Navigation">
@@ -107,13 +107,13 @@
 									<Text text="{DataModel>ApprovedBy}"/>
 									<Text text="{path:'DataModel>ApprovedDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>	
 									<Text text="{DataModel>PoNumber} "></Text>
+									<ObjectStatus text="{DataModel>GateEntryStatus}" state="{path:'DataModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<ObjectStatus text="{DataModel>GRNStatus}" state="{path:'DataModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{path:'DataModel>InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 									<Text text="{DataModel>PlantCode} "></Text>
 									<Text text="{DataModel>PlantName} "></Text>
 									<Text text="{DataModel>VendorCode} "></Text>
 									<Text text="{DataModel>VendorName} "></Text>
-									<ObjectStatus text="{DataModel>GateEntryStatus}" state="{path:'DataModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
-									<ObjectStatus text="{DataModel>GRNStatus}" state="{path:'DataModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
-									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{path:'DataModel>InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 									<!-- <ObjectStatus text="{DataModel>GateEntryStatus}" state="{=${DataModel>GateEntryStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"></ObjectStatus>
 									<ObjectStatus text="{DataModel>GRNStatus}" state="{=${DataModel>GRNStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
 									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{=${DataModel>InvoiceStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus> -->
