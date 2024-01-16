@@ -1,43 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
-    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
-        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
-    </edmx:Reference>
-    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
     </edmx:Reference>
-    <edmx:DataServices>
-        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-            <EntityContainer Name="EntityContainer">
-                <EntitySet Name="Books" EntityType="CatalogService.Books"/>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="CatalogService"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="SchedulingAgreements" EntityType="CatalogService.SchedulingAgreements"/>
+                <EntitySet Name="DocumentRowItems" EntityType="CatalogService.DocumentRowItems"/>
+                <EntitySet Name="ASNList" EntityType="CatalogService.ASNList"/>
+                <EntitySet Name="ASNListHeader" EntityType="CatalogService.ASNListHeader"/>
+                <EntitySet Name="Files" EntityType="CatalogService.Files"/>
+                <FunctionImport Name="getSchedulingAgreementMaterialQuantityList" ReturnType="Collection(CatalogService.AgreementMaterialQuantityInfo)" m:HttpMethod="GET">
+                    <Parameter Name="UnitCode" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="PoNum" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="MaterialCode" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="PoLineNum" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="PostASN" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="asnData" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <AssociationSet Name="SchedulingAgreements_asnListHeader" Association="CatalogService.SchedulingAgreements_asnListHeader">
+                    <End Role="SchedulingAgreements" EntitySet="SchedulingAgreements"/>
+                    <End Role="ASNList" EntitySet="ASNList"/>
+                </AssociationSet>
+                <AssociationSet Name="DocumentRowItems_SchNum" Association="CatalogService.DocumentRowItems_SchNum">
+                    <End Role="DocumentRowItems" EntitySet="DocumentRowItems"/>
+                    <End Role="SchedulingAgreements" EntitySet="SchedulingAgreements"/>
+                </AssociationSet>
+                <AssociationSet Name="ASNList_SchNum" Association="CatalogService.ASNList_SchNum">
+                    <End Role="ASNList" EntitySet="ASNList"/>
+                    <End Role="SchedulingAgreements" EntitySet="SchedulingAgreements"/>
+                </AssociationSet>
+                <AssociationSet Name="ASNListHeader_SchNum" Association="CatalogService.ASNListHeader_SchNum">
+                    <End Role="ASNListHeader" EntitySet="ASNListHeader"/>
+                    <End Role="SchedulingAgreements" EntitySet="SchedulingAgreements"/>
+                </AssociationSet>
             </EntityContainer>
-            <EntityType Name="Books">
+            <EntityType Name="SchedulingAgreements">
                 <Key>
-                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="ScheduleNum"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
-                <Property Name="title" Type="Edm.String"/>
-                <Property Name="stock" Type="Edm.Int32"/>
+                <Property Name="ScheduleNum" Type="Edm.String" Nullable="false"/>
+                <Property Name="SchLineNum" Type="Edm.String"/>
+                <Property Name="PoNum" Type="Edm.String"/>
+                <Property Name="SchDate" Type="Edm.String"/>
+                <Property Name="ValidFrom" Type="Edm.String"/>
+                <Property Name="ValidTo" Type="Edm.String"/>
+                <Property Name="VendorCode" Type="Edm.String"/>
+                <Property Name="VendorName" Type="Edm.String"/>
+                <Property Name="PlantCode" Type="Edm.String"/>
+                <Property Name="PlantName" Type="Edm.String"/>
+                <NavigationProperty Name="DocumentRows" Relationship="CatalogService.DocumentRowItems_SchNum" FromRole="SchedulingAgreements" ToRole="DocumentRowItems"/>
+                <NavigationProperty Name="asnList" Relationship="CatalogService.ASNList_SchNum" FromRole="SchedulingAgreements" ToRole="ASNList"/>
+                <NavigationProperty Name="asnListHeader" Relationship="CatalogService.SchedulingAgreements_asnListHeader" FromRole="SchedulingAgreements" ToRole="ASNList"/>
             </EntityType>
-            <Annotations Target="CatalogService.EntityContainer/Books">
-                <Annotation Term="Capabilities.DeleteRestrictions">
-                    <Record Type="Capabilities.DeleteRestrictionsType">
-                        <PropertyValue Property="Deletable" Bool="false"/>
+            <EntityType Name="DocumentRowItems">
+                <Key>
+                    <PropertyRef Name="UUID"/>
+                </Key>
+                <Property Name="UUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="SchLineNum" Type="Edm.String"/>
+                <Property Name="PoNum" Type="Edm.String"/>
+                <Property Name="SchDate" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="VendorName" Type="Edm.String"/>
+                <Property Name="VendorCode" Type="Edm.String"/>
+                <Property Name="PlantCode" Type="Edm.String"/>
+                <Property Name="PlantName" Type="Edm.String"/>
+                <Property Name="LineNum" Type="Edm.Int32"/>
+                <Property Name="ItemCode" Type="Edm.String"/>
+                <Property Name="ItemDesc" Type="Edm.String"/>
+                <Property Name="HSNCode" Type="Edm.String"/>
+                <Property Name="ASNQty" Type="Edm.Int32"/>
+                <Property Name="PoQty" Type="Edm.Int32"/>
+                <Property Name="DeliveredQty" Type="Edm.Decimal" sap:variable-scale="true"/>
+                <Property Name="BalanceQty" Type="Edm.Decimal" sap:variable-scale="true"/>
+                <Property Name="UnitPrice" Type="Edm.Decimal" sap:variable-scale="true"/>
+                <Property Name="UOM" Type="Edm.String"/>
+                <Property Name="Currency" Type="Edm.String"/>
+                <Property Name="Status" Type="Edm.String"/>
+                <Property Name="ConfirmStatus" Type="Edm.String"/>
+                <Property Name="ASSValue" Type="Edm.String"/>
+                <Property Name="OtherCharges" Type="Edm.String"/>
+                <Property Name="Packing" Type="Edm.String"/>
+                <Property Name="Frieght" Type="Edm.String"/>
+                <Property Name="TCS" Type="Edm.String"/>
+                <Property Name="SGST" Type="Edm.String"/>
+                <Property Name="SGA" Type="Edm.String"/>
+                <Property Name="CGST" Type="Edm.String"/>
+                <Property Name="CGA" Type="Edm.String"/>
+                <Property Name="IGST" Type="Edm.String"/>
+                <Property Name="IGA" Type="Edm.String"/>
+                <Property Name="TOTAL" Type="Edm.String"/>
+                <Property Name="TCA" Type="Edm.String"/>
+                <Property Name="LineValue" Type="Edm.String"/>
+                <Property Name="WeightInKG" Type="Edm.String"/>
+                <NavigationProperty Name="SchNum" Relationship="CatalogService.DocumentRowItems_SchNum" FromRole="DocumentRowItems" ToRole="SchedulingAgreements"/>
+                <Property Name="SchNum_ScheduleNum" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="ASNList">
+                <Key>
+                    <PropertyRef Name="UUID"/>
+                </Key>
+                <Property Name="UUID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="SchNum" Relationship="CatalogService.ASNList_SchNum" FromRole="ASNList" ToRole="SchedulingAgreements"/>
+                <Property Name="SchNum_ScheduleNum" Type="Edm.String"/>
+                <Property Name="ItemCode" Type="Edm.String"/>
+                <Property Name="ItemDesc" Type="Edm.String"/>
+                <Property Name="BillLineNumber" Type="Edm.String"/>
+                <Property Name="SchLineNum" Type="Edm.String"/>
+                <Property Name="PoNum" Type="Edm.String"/>
+                <Property Name="SchDate" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="LineNum" Type="Edm.Int32"/>
+                <Property Name="UOM" Type="Edm.String"/>
+                <Property Name="HSNCode" Type="Edm.String"/>
+                <Property Name="UnitPrice" Type="Edm.String"/>
+                <Property Name="BalanceQty" Type="Edm.String"/>
+                <Property Name="DeliveredQty" Type="Edm.Decimal" sap:variable-scale="true"/>
+                <Property Name="ASSValue" Type="Edm.String"/>
+                <Property Name="Packing" Type="Edm.String"/>
+                <Property Name="Frieght" Type="Edm.String"/>
+                <Property Name="OtherCharges" Type="Edm.String"/>
+                <Property Name="IGST" Type="Edm.String"/>
+                <Property Name="IGA" Type="Edm.String"/>
+                <Property Name="CGST" Type="Edm.String"/>
+                <Property Name="CGA" Type="Edm.String"/>
+                <Property Name="SGST" Type="Edm.String"/>
+                <Property Name="SGA" Type="Edm.String"/>
+                <Property Name="UGP" Type="Edm.String"/>
+                <Property Name="UGA" Type="Edm.String"/>
+                <Property Name="Packages" Type="Edm.String"/>
+                <Property Name="WeightInKG" Type="Edm.String"/>
+                <Property Name="LineValue" Type="Edm.String"/>
+                <Property Name="TCS" Type="Edm.String"/>
+                <Property Name="TCA" Type="Edm.String"/>
+                <Property Name="Currency" Type="Edm.String"/>
+                <Property Name="Status" Type="Edm.String"/>
+                <Property Name="ConfirmStatus" Type="Edm.String"/>
+                <Property Name="PlantCode" Type="Edm.String"/>
+                <Property Name="PlantName" Type="Edm.String"/>
+                <Property Name="PoQty" Type="Edm.Int32"/>
+                <Property Name="ASNQty" Type="Edm.Int32"/>
+                <Property Name="VendorCode" Type="Edm.String"/>
+                <Property Name="VendorName" Type="Edm.String"/>
+                <Property Name="TOTAL" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="ASNListHeader">
+                <Key>
+                    <PropertyRef Name="AsnNum"/>
+                </Key>
+                <Property Name="AsnNum" Type="Edm.String" Nullable="false"/>
+                <NavigationProperty Name="SchNum" Relationship="CatalogService.ASNListHeader_SchNum" FromRole="ASNListHeader" ToRole="SchedulingAgreements"/>
+                <Property Name="SchNum_ScheduleNum" Type="Edm.String"/>
+                <Property Name="BillNumber" Type="Edm.String"/>
+                <Property Name="BillDate" Type="Edm.String"/>
+                <Property Name="DocketNumber" Type="Edm.String"/>
+                <Property Name="GRDate" Type="Edm.String"/>
+                <Property Name="TransportName" Type="Edm.String"/>
+                <Property Name="TransportMode" Type="Edm.String"/>
+                <Property Name="EwayBillNumber" Type="Edm.String"/>
+                <Property Name="EwayBillDate" Type="Edm.String"/>
+                <Property Name="MillNumber" Type="Edm.String"/>
+                <Property Name="MillName" Type="Edm.String"/>
+                <Property Name="PDIRNumber" Type="Edm.String"/>
+                <Property Name="HeatNumber" Type="Edm.String"/>
+                <Property Name="BatchNumber" Type="Edm.String"/>
+                <Property Name="ManufacturingMonth" Type="Edm.String"/>
+                <Property Name="PlantName" Type="Edm.String"/>
+                <Property Name="PlantCode" Type="Edm.String"/>
+                <Property Name="VendorCode" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Files" m:HasStream="true">
+                <Key>
+                    <PropertyRef Name="AsnNum"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="AsnNum" Type="Edm.String" Nullable="false"/>
+                <Property Name="mediaType" Type="Edm.String"/>
+                <Property Name="fileName" Type="Edm.String"/>
+                <Property Name="size" Type="Edm.Int32"/>
+                <Property Name="url" Type="Edm.String"/>
+            </EntityType>
+            <ComplexType Name="AgreementMaterialQuantityInfo">
+                <Property Name="RowNum" Type="Edm.Int32"/>
+                <Property Name="PONum" Type="Edm.String"/>
+                <Property Name="ItemCode" Type="Edm.String"/>
+                <Property Name="ItemDesc" Type="Edm.String"/>
+                <Property Name="PoQty" Type="Edm.Int32"/>
+                <Property Name="DeliveryQty" Type="Edm.Int32"/>
+                <Property Name="DeliveryDate" Type="Edm.String"/>
+                <Property Name="Status" Type="Edm.String"/>
+            </ComplexType>
+            <Association Name="SchedulingAgreements_asnListHeader">
+                <End Role="SchedulingAgreements" Type="CatalogService.SchedulingAgreements" Multiplicity="1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Role="ASNList" Type="CatalogService.ASNList" Multiplicity="*"/>
+            </Association>
+            <Association Name="DocumentRowItems_SchNum">
+                <End Role="DocumentRowItems" Type="CatalogService.DocumentRowItems" Multiplicity="*"/>
+                <End Role="SchedulingAgreements" Type="CatalogService.SchedulingAgreements" Multiplicity="0..1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <ReferentialConstraint>
+                    <Principal Role="SchedulingAgreements">
+                        <PropertyRef Name="ScheduleNum"/>
+                    </Principal>
+                    <Dependent Role="DocumentRowItems">
+                        <PropertyRef Name="SchNum_ScheduleNum"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ASNList_SchNum">
+                <End Role="ASNList" Type="CatalogService.ASNList" Multiplicity="*"/>
+                <End Role="SchedulingAgreements" Type="CatalogService.SchedulingAgreements" Multiplicity="0..1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <ReferentialConstraint>
+                    <Principal Role="SchedulingAgreements">
+                        <PropertyRef Name="ScheduleNum"/>
+                    </Principal>
+                    <Dependent Role="ASNList">
+                        <PropertyRef Name="SchNum_ScheduleNum"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ASNListHeader_SchNum">
+                <End Role="ASNListHeader" Type="CatalogService.ASNListHeader" Multiplicity="*"/>
+                <End Role="SchedulingAgreements" Type="CatalogService.SchedulingAgreements" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="SchedulingAgreements">
+                        <PropertyRef Name="ScheduleNum"/>
+                    </Principal>
+                    <Dependent Role="ASNListHeader">
+                        <PropertyRef Name="SchNum_ScheduleNum"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Annotations Target="CatalogService.Files"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.MediaType" Path="mediaType"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Files/createdAt"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Files/createdBy"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Files/modifiedAt"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Files/modifiedBy"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Files/mediaType"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ContentDisposition">
+                    <Record Type="Core.ContentDispositionType">
+                        <PropertyValue Property="Filename" Path="fileName"/>
                     </Record>
                 </Annotation>
-                <Annotation Term="Capabilities.InsertRestrictions">
-                    <Record Type="Capabilities.InsertRestrictionsType">
-                        <PropertyValue Property="Insertable" Bool="false"/>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.UpdateRestrictions">
-                    <Record Type="Capabilities.UpdateRestrictionsType">
-                        <PropertyValue Property="Updatable" Bool="false"/>
-                    </Record>
-                </Annotation>
+                <Annotation Term="Core.IsMediaType" Bool="true"/>
             </Annotations>
         </Schema>
     </edmx:DataServices>

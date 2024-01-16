@@ -4,7 +4,7 @@
 	<Page id="pageId" title="ASN Detail" titleAlignment="Center" showHeader="true" showNavButton="true" navButtonPress="onNavPress">
 		<ObjectHeader class="object" id="ObjectHeaderId" title="">
 			<attributes>
-				<ObjectAttribute title="Plant" text=""/>
+				<ObjectAttribute title="Plant: " text="{detailModel>/results/0/UnitDesc} ({detailModel>/results/0/UnitCode})" visible="{= ${detailModel>/results/0/UnitCode} !== ''}"/>
 				</attributes>
 			</ObjectHeader>
 		<content>
@@ -23,7 +23,7 @@
                 />
                 <Text
                     id="AddressCodeid"
-                    text=""
+                    text="{detailModel>/results/0/VendorCode}"
                     width="185px"
                 />
                 <Label
@@ -33,7 +33,7 @@
                 />
                 <Text
                     id="_IDGenInput1"
-                    text=""
+                    text="{detailModel>/results/0/ASNInvoiceNumber}"
                     width="185px"
                 />
                 <Label
@@ -42,47 +42,47 @@
                 />
                 <Text
                     id="DP1"
-                    text=""
+                    text="{detailModel>/results/0/ASNInvoiceDate}"
                     width="185px"
                 />
                 <Label text="GRR/Docket No" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/DocketNumber}"
                     width="185px"
                 />
                 <Label text="GRR/Docket Date" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/DocketDate}"
                     width="185px"
                 />
                 <Label text="Transport Name" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/TransportName}"
                     width="185px"
                 />
                 <Label text="Transport Mode" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/TransportMode}"
                     width="185px"
                 />
                 <Label text="EWAY Bill No" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/Ewaybillnumber}"
                     width="185px"
                 />
                 <Label text="EWAY Bill Date" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/Ewaybilldate}"
                     width="185px"
                 />
                 <Label text="Mill T.C. No" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/MillNumber}"
                     width="185px"
                 />
                 <Label text="Mill Name" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/MillName}"
                     width="185px"
                 />
                 <Label
@@ -91,7 +91,7 @@
                 />
                 <Text
                     id="_IDGenInput4"
-                    text=""
+                    text="{detailModel>/results/0/PDIRNumber}"
                     width="185px"
                 />
                 <Label
@@ -100,7 +100,7 @@
                 />
                 <Text
                     id="_IDGenInput8"
-                    text=""
+                    text="{detailModel>/results/0/HeatNumber}"
                     width="185px"
                 />
                 <Label
@@ -109,12 +109,12 @@
                 />
                 <Text
                     id="_IDGenInput9"
-                    text=""
+                    text="{detailModel>/results/0/BatchCode}"
                     width="185px"
                 />
                 <Label text="Manf. Month" />
                 <Text
-                    text=""
+                    text="{detailModel>/results/0/ManufMonth}"
                     width="185px"
                 />
             </f:content>
@@ -159,20 +159,26 @@
 					<Column demandPopin="true" width="12rem">
 						<Label text="Sch. Balance Qty."/>
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
-						<Label text="Amount" />
+					<Column demandPopin="true" width="12rem">
+						<Label text="Rate" />
+					</Column>
+					<Column demandPopin="true" width="12rem">
+						<Label text="ASN Qty."/>
 					</Column>
 					<Column demandPopin="true" width="12rem">
 						<Label text="UOM"/>
 					</Column>
 					<Column demandPopin="true" width="12rem">
-						<Label text="Invoice Number"/>
+						<Label text="ASS Value"/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
-						<Label text="Invoice Date"/>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Packing" />
 					</Column>
-					<Column demandPopin="true" width="12rem">
-						<Label text="Batch Number"/>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="Freight" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+						<Label text="Other Charges" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="CGST %" />
@@ -192,20 +198,14 @@
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="IGST Amt" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
-						<Label text="Other Charges" />
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+						<Label text="TCS %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Freight" />
-					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Packing" />
+						<Label text="TCS Amt" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="Line Value" />
-					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Packaging" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="Weight in Kg." />
@@ -229,35 +229,35 @@
 				<items>
 					<ColumnListItem id="tableTempId">
 						<cells>
-							<Text text=""/>
+							<Text text="{detailModel>BillLineNumber}"/>
 							<Text text="{detailModel>ScheduleNumber}"/>
 							<Text text="{detailModel>ScheduleLineNumber}"/>
 							<Text text="{detailModel>VendorCode}"/>
-							<Text text="{detailModel>VendorName}"/>
-							<Text text=""/>
-							<ObjectIdentifier text="{detailModel>MaterialName}" title="{detailModel>MaterialCode}"/>
+							<Text text="{detailModel>VendorDesc}"/>
+							<Text text="{detailModel>PONumber}"/>
+							<ObjectIdentifier text="{detailModel>ItemDesc}" title="{detailModel>ItemCode}"/>
 							<Text text="{detailModel>HSNCode}"/>
 							<Text text="{detailModel>ScheduleQuantity}"/>
-							<Text text="{detailModel>ScheduleBalancequantity}"/>
-							<tnt:InfoLabel text="{detailModel>Price} {detailModel>Currency}" displayOnly="true" colorScheme="3"/>
-							<Text text="{detailModel>UOM}"/>
-							<Text text="{detailModel>BillNumber}"/>
-							<Text text="{detailModel>BillDate}"/>
-							<Text text="{detailModel>BatchNumber}"/>
+							<Text text="{detailModel>BalanceQtyagainstMrn}"/>
+							<tnt:InfoLabel text="{detailModel>ItemRate}" displayOnly="true" colorScheme="3"/>
+							<Text text="{detailModel>ASNQuantity}"/>
+							<Text text="{detailModel>ItemUOM}"/>
+							<Text text="{detailModel>ASSValue}"/>
+							<Text text="{detailModel>Packing}"/>
+							<Text text="{detailModel>Frieght}"/>
+							<Text text="{detailModel>OtherCharges}"/>
 							<!-- <Text text="{IgstAmount} {parts:['IgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
 							<Text text="{CgstAmount} {parts:['CgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
 							<Text text="{SgstAmount} {parts:['SgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/> -->
 							<Text text="{detailModel>CGST}"/>
-							 <Text text="{detailModel>CGA}"/>
+							<Text text="{detailModel>CGA}"/>
 							<Text text="{detailModel>SGST}"/>
 							<Text text="{detailModel>SGA}"/> 
 							<Text text="{detailModel>IGST}"/>
 							<Text text="{detailModel>IGA}"/>
-							 <Text text="{detailModel>OtherCharges}"/>
-							<Text text="{detailModel>Frieght}"/>
-							<Text text="{detailModel>Packing}"/> 
+							<Text text="{detailModel>TCS}"/>
+							<Text text="{detailModel>TCA}"/>
 							<Text text="{detailModel>LineValue}"/>
-							<Text text="{detailModel>Packaging}"/>
 							<Text text="{detailModel>WeightinKg}"/>
 							<ObjectStatus text="{detailModel>GateEntryStatus}" state="{path:'detailModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 							<ObjectStatus text="{detailModel>GRNStatus}" state="{path:'detailModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
@@ -267,7 +267,7 @@
 							<ObjectStatus text="{GRNStatus}" state="{=${GRNStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"/>
 							<ObjectStatus text="{InvoiceStatus}" state="{=${InvoiceStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"/> -->
 							<Text text="{detailModel>CreatedBy}"/>
-							<Text text="{path:'detailModel>CreatedBOn', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"/>
+							<Text text="{detailModel>CreatedOn}"/>
 						</cells>
 					</ColumnListItem>
 				</items>
