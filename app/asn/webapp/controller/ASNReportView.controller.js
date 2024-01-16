@@ -31,8 +31,8 @@ sap.ui.define([
 				pattern: "ddMMMyyyy"
 			});
 			this.curDate = new Date();
-			//this.startDate = new Date(this.curDate.getTime() - 30 * 24 * 3600 * 1000);
-			this.startDate = new Date();
+			this.startDate = new Date(this.curDate.getTime() - 30 * 24 * 3600 * 1000);
+			//this.startDate = new Date();
 			this.getView().byId("endDateId").setMinDate(this.startDate);
 			this.curDate = dateFormat.format(this.curDate);
 			this.startDate = dateFormat.format(this.startDate);
