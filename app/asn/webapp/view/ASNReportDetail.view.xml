@@ -125,86 +125,86 @@
                     id="_IDGenIconTabFilter1"
                     icon="sap-icon://hint"
                 >
-		<ScrollContainer horizontal="true" vertical="true">
+		<ScrollContainer horizontal="true">
 			<Table id="TableDataId" items="{detailModel>/results}" selectionChange="onTableRowPress" mode="SingleSelectMaster" growing="true" growingScrollToLoad="true"
 				growingThreshold="20" updateStarted="onUpdateStart" sticky="ColumnHeaders">
 				<columns>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="8rem">
 						<Label text="Bill Line No"/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="10rem">
 						<Label text="Sch. Number"/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="8rem">
 						<Label text="Sch. Line Number"/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="8rem">
 						<Label text="Vendor Code"/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="10rem">
 						<Label text="Vendor Name"/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="10rem">
 						<Label text="PO No"/>
 					</Column>
 					<Column demandPopin="true" width="12rem">
 						<Label text="Material"/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="8rem">
 						<Label text="HSN Code"/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="8rem">
 						<Label text="Sch. Qty."/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="8rem">
 						<Label text="Sch. Balance Qty."/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="6rem">
 						<Label text="Rate" />
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<Column demandPopin="true" width="6rem">
 						<Label text="ASN Qty."/>
 					</Column>
-					<Column demandPopin="true" width="12rem">
+					<!-- <Column demandPopin="true" width="12rem">
 						<Label text="UOM"/>
-					</Column>
-					<Column demandPopin="true" width="12rem">
+					</Column> -->
+					<Column demandPopin="true" width="6rem">
 						<Label text="ASS Value"/>
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="Packing" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="Freight" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="Other Charges" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="CGST %" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="CGST Amt" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="SGST %" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="SGST Amt" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="IGST %" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="IGST Amt" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="TCS %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="TCS Amt" />
-					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+					</Column> -->
+					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="Line Value" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
@@ -237,27 +237,27 @@
 							<Text text="{detailModel>PONumber}"/>
 							<ObjectIdentifier text="{detailModel>ItemDesc}" title="{detailModel>ItemCode}"/>
 							<Text text="{detailModel>HSNCode}"/>
-							<Text text="{detailModel>ScheduleQuantity}"/>
-							<Text text="{detailModel>BalanceQtyagainstMrn}"/>
-							<tnt:InfoLabel text="{detailModel>ItemRate}" displayOnly="true" colorScheme="3"/>
-							<Text text="{detailModel>ASNQuantity}"/>
-							<Text text="{detailModel>ItemUOM}"/>
-							<Text text="{detailModel>ASSValue}"/>
-							<Text text="{detailModel>Packing}"/>
-							<Text text="{detailModel>Frieght}"/>
-							<Text text="{detailModel>OtherCharges}"/>
+							<Text text="{detailModel>ScheduleQuantity}{detailModel>ItemUOM}"/>
+							<Text text="{detailModel>BalanceQtyagainstMrn}{detailModel>ItemUOM}"/>
+							<tnt:InfoLabel text="{path:'detailModel>ItemRate',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}" displayOnly="true" colorScheme="3"/>
+							<Text text="{detailModel>ASNQuantity}{detailModel>ItemUOM}"/>
+							<!-- <Text text="{detailModel>ItemUOM}"/> -->
+							<Text text="{path:'detailModel>ASSValue',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
+							<Text text="{path:'detailModel>Packing',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
+							<Text text="{path:'detailModel>Frieght',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
+							<Text text="{path:'detailModel>OtherCharges',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
 							<!-- <Text text="{IgstAmount} {parts:['IgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
 							<Text text="{CgstAmount} {parts:['CgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
 							<Text text="{SgstAmount} {parts:['SgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/> -->
 							<Text text="{detailModel>CGST}"/>
-							<Text text="{detailModel>CGA}"/>
+							<Text text="{path:'detailModel>CGA',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
 							<Text text="{detailModel>SGST}"/>
-							<Text text="{detailModel>SGA}"/> 
+							<Text text="{path:'detailModel>SGA',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/> 
 							<Text text="{detailModel>IGST}"/>
-							<Text text="{detailModel>IGA}"/>
-							<Text text="{detailModel>TCS}"/>
-							<Text text="{detailModel>TCA}"/>
-							<Text text="{detailModel>LineValue}"/>
+							<Text text="{path:'detailModel>IGA',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
+							<!-- <Text text="{detailModel>TCS}"/>
+							<Text text="{detailModel>TCA}"/> -->
+							<Text text="{path:'detailModel>LineValue',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
 							<Text text="{detailModel>WeightinKg}"/>
 							<ObjectStatus text="{detailModel>GateEntryStatus}" state="{path:'detailModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 							<ObjectStatus text="{detailModel>GRNStatus}" state="{path:'detailModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>

@@ -71,6 +71,7 @@ sap.ui.define([
 			//this.ASNtodate = '14 MAR 2023';
 			var that = this;
 			this.AddressCode = sessionStorage.getItem("AddressCode") || 'GKE-01-01';
+			this.getView().byId("vendorCodeId").setValue(this.AddressCode);
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.read("/GetASNHeaderList" ,{
 				urlParameters: {
@@ -114,7 +115,7 @@ sap.ui.define([
 			var data = this.localModel.getData();
 			data.ASNNumber = "";
 			data.PONumber = "";
-			data.VendorCode = "";
+			//data.VendorCode = "";
 			data.CreateStartDate = "";
 			data.CreateEndDate = "";
 			data.InvoiceStatus = "";
@@ -123,7 +124,7 @@ sap.ui.define([
 			var oView = this.getView();
 			oView.byId("asnnumId").setValue("");
 			oView.byId("ponumId").setValue("");
-			oView.byId("vendorCodeId").setValue("");
+			//oView.byId("vendorCodeId").setValue("");
 			oView.byId("createstartDateId").setValue("");
 			oView.byId("createendDateId").setValue("");
 			oView.byId("invoicestatusid").setSelectedKey("");
