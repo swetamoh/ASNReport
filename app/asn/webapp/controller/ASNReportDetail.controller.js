@@ -20,6 +20,7 @@ sap.ui.define([
 			if (oEvent.getParameter("name") === "ASNReportDetail") {
 				//this.detailModel.refresh(true);
 				var that = this;
+				this.UnitCode = sessionStorage.getItem("unitCode") || "P01";
 				var data = oEvent.getParameter("arguments");
 				this.AsnNumber = data.AsnNumber.replace(/-/g, '/');
 				this.getView().byId("pageId").setTitle("ASN Number - " + this.AsnNumber);
@@ -28,6 +29,7 @@ sap.ui.define([
 				urlParameters: {
 					AddressCode: data.AddressCode,
 					ASNNumber: this.AsnNumber,
+					UnitCode: this.UnitCode
 				},
 				success : function (oData) {
 					that.detailModel.setData(oData);

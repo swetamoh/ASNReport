@@ -24,6 +24,15 @@
           "localUri": "localService/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+      "catalog": {
+        "uri": "/sa/odata/v4/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/catalog/metadata.xml",
+          "odataVersion": "2.0"
+        }
       }
     },
     "crossNavigation": {
@@ -88,10 +97,21 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {
-          "synchronizationMode": "None",
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false
+        }
+      },
+      "catalog": {
+        "dataSource": "catalog",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
         }
       }
     },
@@ -112,20 +132,20 @@
       },
       "routes": [
         {
-					"pattern": "",
-					"name": "ASNReportView",
-					"view": "ASNReportView",
-					"targetAggregation": "pages",
-					"targetControl": "appId",
-					"subroutes": [
-						{
-							"pattern": "detail/:AsnNumber:/:AddressCode:",
-							"name": "ASNReportDetail",
-							"view": "ASNReportDetail",
-							"targetAggregation": "pages"
-						}
-					]
-				}
+          "pattern": "",
+          "name": "ASNReportView",
+          "view": "ASNReportView",
+          "targetAggregation": "pages",
+          "targetControl": "appId",
+          "subroutes": [
+            {
+              "pattern": "detail/:AsnNumber:/:AddressCode:",
+              "name": "ASNReportDetail",
+              "view": "ASNReportDetail",
+              "targetAggregation": "pages"
+            }
+          ]
+        }
       ]
     },
     "rootView": {

@@ -39,8 +39,8 @@ sap.ui.define([
 			this.getView().byId("endDateId").setValue(this.curDate);
 			this.getView().byId("startDateId").setValue(this.startDate);
 			this.ASNtodate = new Date();
-			//this.ASNfromdate = new Date(this.ASNtodate.getTime() - 30 * 24 * 3600 * 1000);
-			this.ASNfromdate = new Date();
+			this.ASNfromdate = new Date(this.ASNtodate.getTime() - 30 * 24 * 3600 * 1000);
+			//this.ASNfromdate = new Date();
 			this.ASNtodate = dateFormat1.format(this.ASNtodate);
 			this.ASNfromdate = dateFormat1.format(this.ASNfromdate);
 			this.ASNtodate = this.ASNtodate.substring(0, 2) + " " + this.ASNtodate.substring(2, 5) + " " + this.ASNtodate.substring(5, 9);
