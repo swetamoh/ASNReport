@@ -14,6 +14,7 @@ sap.ui.define([
 			// this.getView().setModel(this.detailModel, "detailModel");
 			this.router = sap.ui.core.UIComponent.getRouterFor(this);
 			this.router.attachRouteMatched(this.handleRouteMatched, this);
+			this.byId("uploadSet").attachEvent("openPressed", this.onOpenPressed, this);
 		},
 		
 		handleRouteMatched: function(oEvent) {
@@ -23,8 +24,11 @@ sap.ui.define([
 				this.UnitCode = sessionStorage.getItem("unitCode") || "P01";
 				var data = oEvent.getParameter("arguments");
 				this.AsnNumber = data.AsnNumber.replace(/-/g, '/');
+				this.AsnNum = data.AsnNumber;
 				this.getView().byId("pageId").setTitle("ASN Number - " + this.AsnNumber);
 				var oModel = this.getOwnerComponent().getModel();
+				var oUploadSet = this.byId("uploadSet");
+				oUploadSet.removeAllItems();
 				oModel.read("/GetASNDetailList" ,{
 				urlParameters: {
 					AddressCode: data.AddressCode,
@@ -34,6 +38,7 @@ sap.ui.define([
 				success : function (oData) {
 					that.detailModel.setData(oData);
 					that.detailModel.refresh();
+					that._fetchFilesForPoNum(that.AsnNum);
 				},
 				error: function (oError) {
 					sap.ui.core.BusyIndicator.hide();
@@ -56,6 +61,74 @@ sap.ui.define([
 
 			}
 		},
+		_fetchFilesForPoNum: function (AsnNum) {
+			var oModel = this.getView().getModel("catalog");
+			var oUploadSet = this.byId("uploadSet");
+			oUploadSet.removeAllItems();
+
+			oModel.read("/Files", {
+				filters: [new sap.ui.model.Filter("AsnNum", sap.ui.model.FilterOperator.EQ, AsnNum)],
+				success: function (oData) {
+					oData.results.forEach(function(fileData) {
+						var oItem = new sap.m.upload.UploadSetItem({
+							fileName: fileData.fileName,
+							mediaType: fileData.mediaType,
+							url: fileData.url,
+							attributes: [
+								new sap.m.ObjectAttribute({ title: "Uploaded By", text: fileData.createdBy }),
+								new sap.m.ObjectAttribute({ title: "Uploaded on", text: fileData.createdAt }),
+								new sap.m.ObjectAttribute({ title: "File Size", text: fileData.size.toString() })
+							]
+						});
+	
+						oUploadSet.addItem(oItem);
+					});
+				},
+				error: function (oError) {
+					console.log("Error: "+ oError)
+				}
+			});
+		},
+		onOpenPressed: function (oEvent) {
+			oEvent.preventDefault();
+			//var item = oEvent.getSource();
+			var item = oEvent.getParameter("item");
+			this._fileName = item.getFileName();
+			this._download(item)
+				.then((blob) => {
+					var url = window.URL.createObjectURL(blob);
+					var link = document.createElement('a');
+					link.href = url;
+					link.setAttribute('download', this._fileName);
+					document.body.appendChild(link);
+					link.click();
+					document.body.removeChild(link);						
+				})
+				.catch((err)=> {
+					console.log(err);
+				});					
+		},
+		_download: function (item) {
+			console.log("_download")
+			var settings = {
+				url: item.getUrl(),
+				method: "GET",
+				xhrFields:{
+					responseType: "blob"
+				}
+			}	
+
+			return new Promise((resolve, reject) => {
+				$.ajax(settings)
+				.done((result, textStatus, request) => {
+					resolve(result);
+				})
+				.fail((err) => {
+					reject(err);
+				})
+			});						
+		},
+
 		onNavPress: function() {
 			history.go(-1);
 		},

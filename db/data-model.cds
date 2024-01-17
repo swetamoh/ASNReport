@@ -13,6 +13,11 @@ entity GetASNHeaderList{
   GateEntryStatus: String;
   GRNStatus: String;
   InvoiceStatus: String;
+  MaterialCode: String;
+  MaterialDescription: String;
+  UOM:String;
+  Currency: String;
+  ASNQuantity: String;
 }
 
 entity GetASNDetailList{
@@ -56,7 +61,7 @@ entity GetASNDetailList{
   ItemRate: String;
   ASNQuantity: String;
   Packing: String;
-  Frieght: String;
+  Freight: String;
   OtherCharges: String;
   TCS: String;
   ASSValue: String;
@@ -68,7 +73,7 @@ entity GetASNDetailList{
   IGA: String;
   TCA: String;
   LineValue: String;
-  WeightinKg: String;
+  WeightInKg: String;
   GateEntryNumber: String;
   GateEntryQuantity: String;
   GateEntryStatus: String;
@@ -76,4 +81,5 @@ entity GetASNDetailList{
   GRNQuantity: String;
   GRNStatus: String;
   InvoiceStatus: String;
+  Currency: String;
 }

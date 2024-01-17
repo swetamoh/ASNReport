@@ -160,7 +160,7 @@
 						<Label text="Sch. Balance Qty."/>
 					</Column>
 					<Column demandPopin="true" width="6rem">
-						<Label text="Rate" />
+						<Label text="Rate {detailModel>/results/0/Currency}" />
 					</Column>
 					<Column demandPopin="true" width="6rem">
 						<Label text="ASN Qty."/>
@@ -169,34 +169,34 @@
 						<Label text="UOM"/>
 					</Column> -->
 					<Column demandPopin="true" width="6rem">
-						<Label text="ASS Value"/>
+						<Label text="ASS Value {detailModel>/results/0/Currency}"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="Packing" />
+						<Label text="Packing {detailModel>/results/0/Currency}" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="Freight" />
+						<Label text="Freight {detailModel>/results/0/Currency}" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Other Charges" />
+						<Label text="Other Charges {detailModel>/results/0/Currency}" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="CGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="CGST Amt" />
+						<Label text="CGST Amt {detailModel>/results/0/Currency}" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="SGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="SGST Amt" />
+						<Label text="SGST Amt {detailModel>/results/0/Currency}" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="IGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="IGST Amt" />
+						<Label text="IGST Amt {detailModel>/results/0/Currency}" />
 					</Column>
 					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="TCS %" />
@@ -205,7 +205,7 @@
 						<Label text="TCS Amt" />
 					</Column> -->
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="Line Value" />
+						<Label text="Line Value {detailModel>/results/0/Currency}" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="Weight in Kg." />
@@ -237,14 +237,14 @@
 							<Text text="{detailModel>PONumber}"/>
 							<ObjectIdentifier text="{detailModel>ItemDesc}" title="{detailModel>ItemCode}"/>
 							<Text text="{detailModel>HSNCode}"/>
-							<Text text="{detailModel>ScheduleQuantity}{detailModel>ItemUOM}"/>
-							<Text text="{detailModel>BalanceQtyagainstMrn}{detailModel>ItemUOM}"/>
+							<Text text="{detailModel>ScheduleQuantity} {detailModel>ItemUOM}"/>
+							<Text text="{detailModel>BalanceQtyagainstMrn} {detailModel>ItemUOM}"/>
 							<tnt:InfoLabel text="{path:'detailModel>ItemRate',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}" displayOnly="true" colorScheme="3"/>
-							<Text text="{detailModel>ASNQuantity}{detailModel>ItemUOM}"/>
+							<Text text="{detailModel>ASNQuantity} {detailModel>ItemUOM}"/>
 							<!-- <Text text="{detailModel>ItemUOM}"/> -->
 							<Text text="{path:'detailModel>ASSValue',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
 							<Text text="{path:'detailModel>Packing',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
-							<Text text="{path:'detailModel>Frieght',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
+							<Text text="{path:'detailModel>Freight',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
 							<Text text="{path:'detailModel>OtherCharges',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
 							<!-- <Text text="{IgstAmount} {parts:['IgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
 							<Text text="{CgstAmount} {parts:['CgstAmount','Currency'], formatter:'sap.fiori.asn.controller.formatter.gstCurrency'}"/>
@@ -258,7 +258,7 @@
 							<!-- <Text text="{detailModel>TCS}"/>
 							<Text text="{detailModel>TCA}"/> -->
 							<Text text="{path:'detailModel>LineValue',formatter:'sap.fiori.asn.controller.formatter.formatAmount'}"/>
-							<Text text="{detailModel>WeightinKg}"/>
+							<Text text="{detailModel>WeightInKg}"/>
 							<ObjectStatus text="{detailModel>GateEntryStatus}" state="{path:'detailModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 							<ObjectStatus text="{detailModel>GRNStatus}" state="{path:'detailModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 							<ObjectStatus text="{detailModel>InvoiceStatus}" state="{path:'detailModel>InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
@@ -278,7 +278,7 @@
                     id="_IDGenIconTabFilter2"
                     icon="sap-icon://attachment"
                 >
-                <!-- <upload:UploadSet
+                <upload:UploadSet
 					id="uploadSet"
 					instantUpload="false"
 					uploadEnabled="true"
@@ -317,7 +317,7 @@
 							</upload:attributes>
 						</upload:UploadSetItem>
 					</upload:items>
-				</upload:UploadSet> -->
+				</upload:UploadSet>
                  </IconTabFilter> 
             </items>
         </IconTabBar>
