@@ -98,6 +98,12 @@
 							<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
 								<Text text="Vendor Name"/>
 							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
+								<Text text="Material"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="ASN Qty"/>
+							</Column>
 						</columns>
 						<items>
 							<ColumnListItem id="tableTempId" type="Navigation">
@@ -114,6 +120,13 @@
 									<Text text="{DataModel>PlantName} "></Text>
 									<Text text="{DataModel>VendorCode} "></Text>
 									<Text text="{DataModel>VendorName} "></Text>
+									<FlexBox id="_IDGenFlexBox1" direction="Column" class="sapUiNoMarginTop">
+                                        <items>
+                                            <ObjectIdentifier title="{DataModel>MaterialCode}"/>
+                                            <Text text="{DataModel>MaterialDescription}"/>
+                                        </items>
+                                    </FlexBox>
+									<Text text="{DataModel>ASNQuantity} {DataModel>UOM}"></Text>
 									<!-- <ObjectStatus text="{DataModel>GateEntryStatus}" state="{=${DataModel>GateEntryStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"></ObjectStatus>
 									<ObjectStatus text="{DataModel>GRNStatus}" state="{=${DataModel>GRNStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
 									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{=${DataModel>InvoiceStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus> -->
