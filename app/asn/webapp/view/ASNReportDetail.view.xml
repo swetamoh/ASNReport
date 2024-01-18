@@ -160,7 +160,7 @@
 						<Label text="Sch. Balance Qty."/>
 					</Column>
 					<Column demandPopin="true" width="6rem">
-						<Label text="Rate {detailModel>/results/0/Currency}" />
+						<Label text="Rate ({detailModel>/results/0/Currency})" />
 					</Column>
 					<Column demandPopin="true" width="6rem">
 						<Label text="ASN Qty."/>
@@ -169,34 +169,34 @@
 						<Label text="UOM"/>
 					</Column> -->
 					<Column demandPopin="true" width="6rem">
-						<Label text="ASS Value {detailModel>/results/0/Currency}"/>
+						<Label text="ASS Value ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="Packing {detailModel>/results/0/Currency}" />
+						<Label text="Packing ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="Freight {detailModel>/results/0/Currency}" />
+						<Label text="Freight ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-						<Label text="Other Charges {detailModel>/results/0/Currency}" />
+						<Label text="Other Charges ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="CGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="CGST Amt {detailModel>/results/0/Currency}" />
+						<Label text="CGST Amt ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="SGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="SGST Amt {detailModel>/results/0/Currency}" />
+						<Label text="SGST Amt ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="IGST %" />
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="IGST Amt {detailModel>/results/0/Currency}" />
+						<Label text="IGST Amt ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<!-- <Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="TCS %" />
@@ -205,7 +205,7 @@
 						<Label text="TCS Amt" />
 					</Column> -->
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="Line Value {detailModel>/results/0/Currency}" />
+						<Label text="Line Value ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
 						<Label text="Weight in Kg." />

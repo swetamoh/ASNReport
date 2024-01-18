@@ -58,7 +58,7 @@
 						</fb:filterItems>
 					</fb:FilterBar>
 				</l:VerticalLayout> 
-				<ScrollContainer horizontal="true" height="100%">
+				<ScrollContainer horizontal="true">
 					<Table id="TableDataId" itemPress="onItempress" items="{DataModel>/results}" mode="SingleSelectMaster"
 						sticky="ColumnHeaders">
 						<columns>
