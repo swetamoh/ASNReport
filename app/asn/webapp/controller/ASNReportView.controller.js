@@ -73,7 +73,7 @@ sap.ui.define([
 			this.AddressCode = sessionStorage.getItem("AddressCode") || 'GKE-01-01';
 			this.getView().byId("vendorCodeId").setValue(this.AddressCode);
 			var oModel = this.getOwnerComponent().getModel();
-			oModel.read("/GetASNHeaderList" ,{
+			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
 					AddressCode: this.AddressCode,
 					PoNumber: '',
@@ -84,7 +84,7 @@ sap.ui.define([
 					MRNStatus: '',
 					ApprovedBy: ''
 				},
-				success : function (oData) {
+				success: function (oData) {
 					that.DataModel.setData(oData);
 					that.DataModel.refresh();
 				},
@@ -93,7 +93,7 @@ sap.ui.define([
 					var value = JSON.parse(oError.response.body);
 					MessageBox.error(value.error.message.value);
 				}
-		});
+			});
 
 			var datePicker = this.getView().byId("startDateId");
 
@@ -139,36 +139,36 @@ sap.ui.define([
 			var dateFormat1 = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "ddMMMyyyy"
 			});
-			
+
 			this.EndDate = this.getView().byId("endDateId").getDateValue();
 			this.StartDate = this.getView().byId("startDateId").getDateValue();
 			this.EndDate = dateFormat1.format(this.EndDate);
 			this.StartDate = dateFormat1.format(this.StartDate);
 			this.EndDate = this.EndDate.substring(0, 2) + " " + this.EndDate.substring(2, 5) + " " + this.EndDate.substring(5, 9);
 			this.StartDate = this.StartDate.substring(0, 2) + " " + this.StartDate.substring(2, 5) + " " + this.StartDate.substring(5, 9);
-			
-			if(!data.ASNNumber){
+
+			if (!data.ASNNumber) {
 				data.ASNNumber = "";
 			}
-			if(!data.PONumber){
+			if (!data.PONumber) {
 				data.PONumber = "";
 			}
-			if(!data.VendorCode){
+			if (!data.VendorCode) {
 				this.VendorCode = this.AddressCode;
-			}else if(data.VendorCode){
+			} else if (data.VendorCode) {
 				this.VendorCode = data.VendorCode;
 			}
-			if(!data.CreatedBy){
+			if (!data.CreatedBy) {
 				data.CreatedBy = "";
 			}
-			if(!data.InvoiceStatus){
+			if (!data.InvoiceStatus) {
 				data.InvoiceStatus = "";
 			}
-			if(!data.GRNStatus){
+			if (!data.GRNStatus) {
 				data.GRNStatus = "";
 			}
-			
-			oModel.read("/GetASNHeaderList" ,{
+
+			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
 					AddressCode: this.VendorCode,
 					PoNumber: data.PONumber,
@@ -179,7 +179,7 @@ sap.ui.define([
 					MRNStatus: data.GRNStatus,
 					ApprovedBy: data.CreatedBy
 				},
-				success : function (oData) {
+				success: function (oData) {
 					sap.ui.core.BusyIndicator.hide();
 					that.DataModel.setData(oData);
 					that.DataModel.refresh();
@@ -189,7 +189,7 @@ sap.ui.define([
 					var value = JSON.parse(oError.response.body);
 					MessageBox.error(value.error.message.value);
 				}
-		});
+			});
 			//var path = "/AsnSet?$filter=";
 			// Object.keys(data).forEach(function (key, index) {
 			// 	if (data[key]) {
@@ -217,13 +217,133 @@ sap.ui.define([
 
 		onItempress: function (oEvent) {
 			var data = oEvent.getParameter("listItem").getBindingContext("DataModel").getProperty();
-			this.AsnNumber = data.ASNNumber.replace(/\//g,'-');
+			this.AsnNumber = data.ASNNumber.replace(/\//g, '-');
 			//this.detailModel.setData(data);
 			this.router.navTo("ASNReportDetail", {
 				"AsnNumber": this.AsnNumber,
 				"AddressCode": this.AddressCode
 			});
 		},
+		/////////////////////////////////////////Table Personalization////////////////////////////////
+		onColumnSelection: function (event) {
+			var that = this;
+			var List = that.byId("List");
+			var popOver = this.byId("popOver");
+			if (List !== undefined) {
+				List.destroy();
+			}
+			if (popOver !== undefined) {
+				popOver.destroy();
+			}
+			/*----- PopOver on Clicking ------ */
+			var popover = new sap.m.Popover(this.createId("popOver"), {
+				showHeader: true,
+				// showFooter: true,
+				placement: sap.m.PlacementType.Bottom,
+				content: []
+			}).addStyleClass("sapMOTAPopover sapTntToolHeaderPopover sapUiResponsivePadding--header sapUiResponsivePadding--footer");
+
+			/*----- Adding List to the PopOver -----*/
+			var oList = new sap.m.List(this.createId("List"), {});
+			this.byId("popOver").addContent(oList);
+			var openAssetTable = this.getView().byId("TableDataId"),
+				columnHeader = openAssetTable.getColumns();
+			var openAssetColumns = [];
+			for (var i = 0; i < columnHeader.length; i++) {
+				var hText = columnHeader[i].getAggregation("header").getProperty("text");
+				var columnObject = {};
+				columnObject.column = hText;
+				openAssetColumns.push(columnObject);
+			}
+			var oModel1 = new sap.ui.model.json.JSONModel({
+				list: openAssetColumns
+			});
+			var itemTemplate = new sap.m.StandardListItem({
+				title: "{oList>column}"
+			});
+			oList.setMode("MultiSelect");
+			oList.setModel(oModel1);
+			sap.ui.getCore().setModel(oModel1, "oList");
+			var oBindingInfo = {
+				path: 'oList>/list',
+				template: itemTemplate
+			};
+			oList.bindItems(oBindingInfo);
+			var footer = new sap.m.Bar({
+				contentLeft: [],
+				contentMiddle: [new sap.m.Button({
+					text: "Cancel",
+					press: function () {
+						that.onCancel();
+					}
+				})],
+				contentRight: [new sap.m.Button({
+					text: "Save",
+					press: function () {
+						that.onSave();
+					}
+				})
+				]
+
+			});
+
+			this.byId("popOver").setFooter(footer);
+			var oList1 = this.byId("List");
+			var table = this.byId("TableDataId").getColumns();
+			/*=== Update finished after list binded for selected visible columns ==*/
+			oList1.attachEventOnce("updateFinished", function () {
+				var a = [];
+				for (var j = 0; j < table.length; j++) {
+					var list = oList1.oModels.undefined.oData.list[j].column;
+					a.push(list);
+					var Text = table[j].getHeader().getProperty("text");
+					var v = table[j].getProperty("visible");
+					if (v === true) {
+						if (a.indexOf(Text) > -1) {
+							var firstItem = oList1.getItems()[j];
+							oList1.setSelectedItem(firstItem, true);
+						}
+					}
+				}
+			});
+			popover.openBy(event.getSource());
+		},
+		/*================ Closing the PopOver =================*/
+		onCancel: function () {
+			this.byId("popOver").close();
+		},
+		/*============== Saving User Preferences ==================*/
+		onSave: function () {
+			var that = this;
+			var oList = this.byId("List");
+			var array = [];
+			var items = oList.getSelectedItems();
+
+			// Getting the Selected Columns header Text.
+			for (var i = 0; i < items.length; i++) {
+				var item = items[i];
+				var context = item.getBindingContext("oList");
+				var obj = context.getProperty(null, context);
+				var column = obj.column;
+				array.push(column);
+			}
+			/*---- Displaying Columns Based on the selection of List ----*/
+			var table = this.byId("TableDataId").getColumns();
+			for (var j = 0; j < table.length; j++) {
+				var Text = table[j].getHeader().getProperty("text");
+				var Column = table[j].getId();
+				var columnId = this.getView().byId(Column);
+				if (array.indexOf(Text) > -1) {
+					columnId.setVisible(true);
+				} else {
+					columnId.setVisible(false);
+				}
+			}
+
+			this.byId("popOver").close();
+
+		},
+		/////////////////////////////////////////Table Personalization////////////////////////////////
 
 		// Invoice Number f4 
 
@@ -596,21 +716,21 @@ sap.ui.define([
 			// var INVFilterKey = "";
 			if (this.statusType === "Asn Status") {
 				switch (this.byId("selectFilterId").getText().toLowerCase().trim()) {
-				case "new":
-					ASNFilterKey = "01";
-					break;
-				case "in transit":
-					ASNFilterKey = "02";
-					break;
-				case "reached plant":
-					ASNFilterKey = "03";
-					break;
-				case "unloading started":
-					ASNFilterKey = "04";
-					break;
-				case "completed":
-					ASNFilterKey = "05";
-					break;
+					case "new":
+						ASNFilterKey = "01";
+						break;
+					case "in transit":
+						ASNFilterKey = "02";
+						break;
+					case "reached plant":
+						ASNFilterKey = "03";
+						break;
+					case "unloading started":
+						ASNFilterKey = "04";
+						break;
+					case "completed":
+						ASNFilterKey = "05";
+						break;
 				}
 				path = path + " and AsnStatus eq '" + ASNFilterKey + "'";
 			}
@@ -741,15 +861,15 @@ sap.ui.define([
 			this.statusFilters = [];
 			if (sValue) {
 				switch (this.statusType) {
-				case "Asn Status":
-					this.statusFilters.push(new sap.ui.model.Filter("AsnStatusText", sap.ui.model.FilterOperator.EQ, sValue));
-					break;
-				case "Gr Status":
-					this.statusFilters.push(new sap.ui.model.Filter("GrStatus", sap.ui.model.FilterOperator.EQ, sValue));
-					break;
-				case "Inv. Status":
-					this.statusFilters.push(new sap.ui.model.Filter("InvStatus", sap.ui.model.FilterOperator.EQ, sValue));
-					break;
+					case "Asn Status":
+						this.statusFilters.push(new sap.ui.model.Filter("AsnStatusText", sap.ui.model.FilterOperator.EQ, sValue));
+						break;
+					case "Gr Status":
+						this.statusFilters.push(new sap.ui.model.Filter("GrStatus", sap.ui.model.FilterOperator.EQ, sValue));
+						break;
+					case "Inv. Status":
+						this.statusFilters.push(new sap.ui.model.Filter("InvStatus", sap.ui.model.FilterOperator.EQ, sValue));
+						break;
 				}
 				// 	if (ID.includes("AsnStatusId")) {
 				// 		that.StatusFilterId = "AsnId";
