@@ -64,7 +64,7 @@ sap.ui.define([
                                 if( res.login_name[0] !==  res.email){
                                 sessionStorage.setItem('AddressCode', res.login_name[0]);
                                 }else {
-                                    sessionStorage.setItem('AddressCode', 'GKE-01-01');
+                                    sessionStorage.setItem('AddressCode', 'OKA-01-02');
                                 }
                             }
                         });
