@@ -71,7 +71,8 @@ sap.ui.define([
 			//this.ASNfromdate = '13 MAR 2023';
 			//this.ASNtodate = '14 MAR 2023';
 			var that = this;
-			this.AddressCode = sessionStorage.getItem("AddressCode") || 'OKA-01-02';
+			this.AddressCode = sessionStorage.getItem("AddressCode") || 'REP-04-04
+';
 			this.getView().byId("vendorCodeId").setValue(this.AddressCode);
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.read("/GetASNHeaderList", {
