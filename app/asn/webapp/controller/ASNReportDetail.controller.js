@@ -20,6 +20,7 @@ sap.ui.define([
 		handleRouteMatched: function(oEvent) {
 			if (oEvent.getParameter("name") === "ASNReportDetail") {
 				//this.detailModel.refresh(true);
+				sap.ui.core.BusyIndicator.show();
 				var that = this;
 				this.UnitCode = sessionStorage.getItem("unitCode") || "P01";
 				var data = oEvent.getParameter("arguments");
@@ -36,6 +37,7 @@ sap.ui.define([
 					UnitCode: this.UnitCode
 				},
 				success : function (oData) {
+					sap.ui.core.BusyIndicator.hide();
 					that.detailModel.setData(oData);
 					that.detailModel.refresh();
 					that._fetchFilesForPoNum(that.AsnNum);
