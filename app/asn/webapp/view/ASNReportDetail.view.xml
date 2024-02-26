@@ -45,15 +45,15 @@
                     text="{detailModel>/results/0/ASNInvoiceDate}"
                     width="185px"
                 />
-                <Label text="GRR/Docket No" />
+                <Label text="GRR/Docket No" visible="false"/>
                 <Text
                     text="{detailModel>/results/0/DocketNumber}"
-                    width="185px"
+                    width="185px" visible="false"
                 />
-                <Label text="GRR/Docket Date" />
+                <Label text="GRR/Docket Date" visible="false"/>
                 <Text
                     text="{detailModel>/results/0/DocketDate}"
-                    width="185px"
+                    width="185px" visible="false"
                 />
                 <Label text="Transport Name" />
                 <Text
@@ -75,42 +75,42 @@
                     text="{detailModel>/results/0/Ewaybilldate}"
                     width="185px"
                 />
-                <Label text="Mill T.C. No" />
+                <Label text="Mill T.C. No" visible="false"/>
                 <Text
                     text="{detailModel>/results/0/MillNumber}"
-                    width="185px"
+                    width="185px" visible="false"
                 />
-                <Label text="Mill Name" />
+                <Label text="Mill Name" visible="false"/>
                 <Text
                     text="{detailModel>/results/0/MillName}"
-                    width="185px"
+                    width="185px" visible="false"
                 />
                 <Label
                     id="_IDGenLabel4"
-                    text="PDIR No"
+                    text="PDIR No" visible="false"
                 />
                 <Text
                     id="_IDGenInput4"
                     text="{detailModel>/results/0/PDIRNumber}"
-                    width="185px"
+                    width="185px" visible="false"
                 />
                 <Label
                     id="_IDGenLabel18"
-                    text="Heat No"
+                    text="Heat No" visible="false"
                 />
                 <Text
                     id="_IDGenInput8"
                     text="{detailModel>/results/0/HeatNumber}"
-                    width="185px"
+                    width="185px" visible="false"
                 />
                 <Label
                     id="_IDGenLabel19"
-                    text="Batch Code"
+                    text="Batch Code" visible="false"
                 />
                 <Text
                     id="_IDGenInput9"
                     text="{detailModel>/results/0/BatchCode}"
-                    width="185px"
+                    width="185px" visible="false"
                 />
                 <Label text="Manf. Month" />
                 <Text
