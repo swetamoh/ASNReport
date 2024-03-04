@@ -17,9 +17,9 @@
 									<Input id="ponumId" value="{localModel>/PONumber}"/>
 								</fb:control>
 							</fb:FilterItem>
-							<fb:FilterItem name="C" label="Vendor Code">
+							<fb:FilterItem name="C" label="Vendor Code" mandatory="true">
 								<fb:control>
-									<Input id="vendorCodeId" value="{localModel>/VendorCode}" enabled="false"/>
+									<Input id="vendorCodeId" value="{localModel>/VendorCode}"/>
 								</fb:control>
 							</fb:FilterItem>
 							<fb:FilterItem name="D" label="ASN Start Date" mandatory="true">
