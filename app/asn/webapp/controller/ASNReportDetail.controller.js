@@ -49,17 +49,6 @@ sap.ui.define([
 				}
 		});
 
-				// this.getView().byId("TableDataId").bindItems({
-				// 	path: "/GetASNDetailList",
-				// 	parameters: {
-				// 		custom: {
-				// 			AddressCode: data.AddressCode,
-				// 			ASNNumber: this.AsnNumber,
-				// 		},
-				// 		countMode: 'None'
-				// 	},
-				// 	template: this._tableTemp
-				// });
 
 			}
 		},
@@ -134,45 +123,7 @@ sap.ui.define([
 		onNavPress: function() {
 			history.go(-1);
 		},
-		// onFilterClear: function() {
-		// 	var oView = this.getView();
-		// 	oView.byId("MaterialId").setSelectedKey("");
-		// },
-		// handleMaterialHelp: function() {
-
-		// 	if (!this.materialFragment) {
-		// 		this.materialFragment = sap.ui.xmlfragment("sap.fiori.asn.fragment.fragMaterial", this);
-		// 		this.getView().addDependent(this.materialFragment);
-		// 		this._materialTemp = sap.ui.getCore().byId("materialTempId").clone();
-		// 	}
-
-		// 	sap.ui.getCore().byId("materialF4Id").bindAggregation("items", {
-		// 		path: "/MaterialHelpSet?$filter=Ebeln eq '" + this.data1.Ebeln + "'",
-		// 		template: this._materialTemp
-		// 	});
-
-		// 	this.materialFragment.open();
-
-		// },
-		// handleMaterialValueHelpSearch: function(evt) {
-		// 	var sValue = evt.getParameter("value");
-		// 	if (sValue) {
-		// 		sap.ui.getCore().byId("materialF4Id").bindAggregation("items", {
-		// 			path: "/MaterialHelpSet?$filter=Matnr eq '" + sValue + "' and Ebeln eq '" + this.data1.Ebeln + "'",
-		// 			template: this._materialTemp
-		// 		});
-		// 	} else {
-		// 		sap.ui.getCore().byId("materialF4Id").bindAggregation("items", {
-		// 			path: "/MaterialHelpSet?$filter=Ebeln eq='" + this.data1.Ebeln + "' ",
-		// 			template: this._materialTemp
-		// 		});
-		// 	}
-		// },
-		// handleMaterialValueHelpClose: function(evt) {
-		// 	var oSelectedItem = evt.getParameter("selectedItem");
-		// 	var Matnr = oSelectedItem.getBindingContext().getProperty("Matnr");
-		// 	this.getView().byId("MaterialId").setValue(Matnr);
-		// }
+		
 	});
 
 });
