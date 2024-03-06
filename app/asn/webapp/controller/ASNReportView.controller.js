@@ -48,7 +48,7 @@ sap.ui.define([
 			this.ASNfromdate = this.ASNfromdate.substring(0, 2) + " " + this.ASNfromdate.substring(2, 5) + " " + this.ASNfromdate.substring(5, 9);
 			
 			var that = this;
-			this.AddressCode = sessionStorage.getItem("AddressCode") || 'REP-04-04';
+			this.AddressCode = sessionStorage.getItem("AddressCode") || 'JSE-01-01';
 			this.getView().byId("vendorCodeId").setValue(this.AddressCode);
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.read("/GetASNHeaderList", {
