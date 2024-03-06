@@ -173,12 +173,13 @@ sap.ui.define([
 		},
 
 		onItempress: function (oEvent) {
+			var filterdata = this.localModel.getData();
 			var data = oEvent.getParameter("listItem").getBindingContext("DataModel").getProperty();
 			this.AsnNumber = data.ASNNumber.replace(/\//g, '-');
 			//this.detailModel.setData(data);
 			this.router.navTo("ASNReportDetail", {
 				"AsnNumber": this.AsnNumber,
-				"AddressCode": this.AddressCode
+				"AddressCode": filterdata.VendorCode
 			});
 		},
 		/////////////////////////////////////////Table Personalization////////////////////////////////
