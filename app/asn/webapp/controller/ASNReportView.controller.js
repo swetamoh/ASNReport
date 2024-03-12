@@ -50,9 +50,11 @@ sap.ui.define([
 			var that = this;
 			this.AddressCode = sessionStorage.getItem("AddressCode") || 'JSE-01-01';
 			this.getView().byId("vendorCodeId").setValue(this.AddressCode);
+			this.LoggedUser = sessionStorage.getItem("LoggedUser");
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
+					username: this.LoggedUser,
 					AddressCode: this.AddressCode,
 					PoNumber: '',
 					ASNNumber: '',
@@ -149,6 +151,7 @@ sap.ui.define([
 
 			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
+					username: this.LoggedUser,
 					AddressCode: this.VendorCode,
 					PoNumber: data.PONumber,
 					ASNNumber: data.ASNNumber,
