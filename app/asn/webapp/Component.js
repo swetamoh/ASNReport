@@ -61,6 +61,7 @@ sap.ui.define([
                             url: modulePath + slash + "user-api/attributes",
                             type: "GET",
                             success: res => {
+                                sessionStorage.setItem('LoggedUser', res.email);
                                 if( res.login_name[0] !==  res.email){
                                 sessionStorage.setItem('AddressCode', res.login_name[0]);
                                 }else {

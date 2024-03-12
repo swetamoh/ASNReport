@@ -23,6 +23,7 @@ sap.ui.define([
 				sap.ui.core.BusyIndicator.show();
 				var that = this;
 				this.UnitCode = sessionStorage.getItem("unitCode") || "P01";
+				this.LoggedUser = sessionStorage.getItem("LoggedUser");
 				var data = oEvent.getParameter("arguments");
 				this.AsnNumber = data.AsnNumber.replace(/-/g, '/');
 				this.AsnNum = data.AsnNumber;
@@ -32,6 +33,7 @@ sap.ui.define([
 				oUploadSet.removeAllItems();
 				oModel.read("/GetASNDetailList" ,{
 				urlParameters: {
+					username: this.LoggedUser,
 					AddressCode: data.AddressCode,
 					ASNNumber: this.AsnNumber,
 					UnitCode: this.UnitCode
