@@ -13,7 +13,7 @@ module.exports = (srv) => {
             token = await generateToken(params.username);
         }
         const results = await getASNHeaderList(params);
-        if (!results) throw new Error('Unable to fetch ASN Header List.');
+        if (results.error) req.reject(500, results.error);
         return results;
 
     });
@@ -24,7 +24,7 @@ module.exports = (srv) => {
             token = await generateToken(username);
         }
         const results = await getASNDetailList(AddressCode, ASNNumber, UnitCode, username);
-        if (!results) throw new Error('Unable to fetch ASN Header List.');
+        if (results.error) req.reject(500, results.error);
         return results;
     });
 };
@@ -49,12 +49,13 @@ async function getASNHeaderList(params) {
         if (response.data && response.data.d) {
             return JSON.parse(response.data.d);
         } else {
-            console.error('Error parsing response:', response.data);
-            throw new Error('Error parsing the response from the API.');
+            return {
+                error: response.data.ErrorDescription
+            }
         }
     } catch (error) {
         console.error('Error in getASNHeaderList API call:', error);
-        throw new Error('Unable to fetch ASN Header List.');
+        throw new Error(error);
     }
 }
 
@@ -73,12 +74,13 @@ async function getASNDetailList(AddressCode, ASNNumber, UnitCode, username) {
         if (response.data && response.data.d) {
             return JSON.parse(response.data.d);
         } else {
-            console.error('Error parsing response:', response.data);
-            throw new Error('Error parsing the response from the API.');
+            return {
+                error: response.data.ErrorDescription
+            }
         }
     } catch (error) {
         console.error('Error in getASNDetailList API call:', error);
-        throw new Error('Unable to fetch ASN Detail List.');
+        throw new Error(error);
     }
 }
 
