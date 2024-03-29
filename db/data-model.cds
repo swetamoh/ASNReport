@@ -1,4 +1,4 @@
-namespace my.bookshop;
+namespace my.asn;
 
 entity GetASNHeaderList{
   key ASNNumber : String;
