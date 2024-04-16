@@ -1,6 +1,6 @@
 <mvc:View controllerName="sap.fiori.asn.controller.View1" xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true" xmlns="sap.m">
-	<Shell id="shell">
+	<!-- <Shell id="shell"> -->
 		<App id="appId"/>
-	</Shell>
+	<!-- </Shell> -->
 </mvc:View>
