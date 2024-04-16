@@ -22,7 +22,7 @@ sap.ui.define([
 				//this.detailModel.refresh(true);
 				sap.ui.core.BusyIndicator.show();
 				var that = this;
-				this.UnitCode = sessionStorage.getItem("unitCode") || "P01";
+				//this.UnitCode = sessionStorage.getItem("unitCode") || "P01";
 				this.LoggedUser = sessionStorage.getItem("LoggedUser");
 				var data = oEvent.getParameter("arguments");
 				this.AsnNumber = data.AsnNumber.replace(/-/g, '/');
@@ -36,7 +36,7 @@ sap.ui.define([
 					username: this.LoggedUser,
 					AddressCode: data.AddressCode,
 					ASNNumber: this.AsnNumber,
-					UnitCode: this.UnitCode
+					UnitCode: data.UnitCode
 				},
 				success : function (oData) {
 					sap.ui.core.BusyIndicator.hide();
