@@ -46,7 +46,7 @@ sap.ui.define([
 			this.ASNfromdate = dateFormat1.format(this.ASNfromdate);
 			this.ASNtodate = this.ASNtodate.substring(0, 2) + " " + this.ASNtodate.substring(2, 5) + " " + this.ASNtodate.substring(5, 9);
 			this.ASNfromdate = this.ASNfromdate.substring(0, 2) + " " + this.ASNfromdate.substring(2, 5) + " " + this.ASNfromdate.substring(5, 9);
-			
+
 			var that = this;
 			this.AddressCode = sessionStorage.getItem("AddressCode") || 'JSE-01-01';
 			this.getView().byId("vendorCodeId").setValue(this.AddressCode);
@@ -172,7 +172,7 @@ sap.ui.define([
 					MessageBox.error(value.error.message.value);
 				}
 			});
-			
+
 		},
 
 		onItempress: function (oEvent) {
@@ -324,7 +324,170 @@ sap.ui.define([
 				this.getView().byId("createendDateId").setDateValue(new Date(FromDate));
 			}
 			oEvent.getSource().$().find('INPUT').attr('disabled', true).css('color', '#000000');
-		}
+		},
+		onDataExport: function () {
+			var oSettings, aColumns,
+				aColumnNames = [];
+			var aExportData = this.DataModel.getData().results;
+			if (aExportData) {
+				aColumns = this.getView().byId("TableDataId").getColumns();
+				// for (var i = 0; i < aColumns.length; i++) {
+				// 	var sColumn = aColumns[i].getHeader().getText();
+				// 	if (sColumn) {
+				// 		aColumnNames.push({
+				// 			label: aColumns[i].getHeader().getText(),
+				// 			property: sColumn,
+				// 			type: "string"
+				// 		});
+				// 	}
+				// }
+				aColumnNames = [{
+					label: "ASN Number",
+					property: "ASNNumber",
+					type: "string"
+				}, {
+					label: "ASN Date",
+					property: "ASNDate",
+					type: "string"
+				}, {
+					label: "Created By",
+					property: "ApprovedBy",
+					type: "string"
+				}, {
+					label: "Created On",
+					property: "ApprovedDate",
+					type: "string"
+				}, {
+					label: "PO Number",
+					property: "PoNumber",
+					type: "string"
+				}, {
+					label: "Gate Entry Status",
+					property: "GateEntryStatus",
+					type: "string"
+				}, {
+					label: "GRN Status",
+					property: "GRNStatus",
+					type: "string"
+				}, {
+					label: "Invoice Status",
+					property: "InvoiceStatus",
+					type: "string"
+				}, {
+					label: "Plant Code",
+					property: "PlantCode",
+					type: "string"
+				}, {
+					label: "Plant Name",
+					property: "PlantName",
+					type: "string"
+				}, {
+					label: "Vendor Code",
+					property: "VendorCode",
+					type: "string"
+				}, {
+					label: "Vendor Name",
+					property: "VendorName",
+					type: "string"
+				}, {
+					label: "Material",
+					property: "MaterialCode",
+					type: "string"
+				}, {
+					label: "Material Desription",
+					property: "MaterialDescription",
+					type: "string"
+				}, {
+					label: "ASN Qty",
+					property: "ASNQuantity",
+					type: "string"
+				}, {
+					label: "ASN Qty UOM",
+					property: "UOM",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}, {
+					label: "",
+					property: "",
+					type: "string"
+				}];
+				oSettings = {
+					workbook: {
+						columns: aColumnNames
+					},
+					dataSource: aExportData,
+					fileName: "ASN Report"
+				};
+				new Spreadsheet(oSettings).build();
+			}
+		},
 	});
 
 });

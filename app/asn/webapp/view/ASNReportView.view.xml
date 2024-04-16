@@ -61,7 +61,8 @@
 				<OverflowToolbar >
                     <ToolbarSpacer/>
                     <Button icon="sap-icon://action-settings" id="CreateButton" type="Emphasized" press="onColumnSelection" tooltip="Settings"/>
-                </OverflowToolbar>
+					<Button text="Download" icon="sap-icon://download" press="onDataExport" type="Emphasized"/>
+				</OverflowToolbar>
 				<ScrollContainer horizontal="true">
 					<Table id="TableDataId" itemPress="onItempress" items="{path:'DataModel>/results'}" mode="SingleSelectMaster"
 						sticky="ColumnHeaders">
