@@ -182,7 +182,8 @@ sap.ui.define([
 			//this.detailModel.setData(data);
 			this.router.navTo("ASNReportDetail", {
 				"AsnNumber": this.AsnNumber,
-				"AddressCode": filterdata.VendorCode
+				"AddressCode": filterdata.VendorCode,
+				"UnitCode": data.PlantCode
 			});
 		},
 		/////////////////////////////////////////Table Personalization////////////////////////////////
