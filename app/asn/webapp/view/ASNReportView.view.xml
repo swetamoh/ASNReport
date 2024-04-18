@@ -106,7 +106,7 @@
 							<Column id="material_col" minScreenWidth="Tablet" demandPopin="true" width="12rem">
 								<Text text="Material"/>
 							</Column>
-							<Column id="asnQty_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+							<Column id="asnQty_col" minScreenWidth="Tablet" demandPopin="true" width="8rem" visible="false">
 								<Text text="ASN Qty"/>
 							</Column>
 						</columns>
