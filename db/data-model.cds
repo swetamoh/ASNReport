@@ -18,6 +18,8 @@ entity GetASNHeaderList{
   UOM:String;
   Currency: String;
   ASNQuantity: String;
+  ScheduleNumber: String;
+  ASNDateTime: String;
 }
 
 entity GetASNDetailList{
@@ -82,4 +84,6 @@ entity GetASNDetailList{
   GRNStatus: String;
   InvoiceStatus: String;
   Currency: String;
+  GateEntryDate: String;
+  GRNDate: String;
 }
