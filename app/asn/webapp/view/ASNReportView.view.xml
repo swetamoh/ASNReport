@@ -97,7 +97,7 @@
 							<Column id="gateEntryNo_col" minScreenWidth="Tablet" demandPopin="true" width="10rem">
 								<Text text="Gate Entry No"/>
 							</Column>
-							<Column id="gateEntryDate_col" minScreenWidth="Tablet" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+							<Column id="gateEntryDate_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Gate Entry Date" />
 							</Column>
 							<Column id="plantCode_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
