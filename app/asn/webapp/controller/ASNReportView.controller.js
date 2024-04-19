@@ -346,20 +346,16 @@ sap.ui.define([
 					property: "ASNNumber",
 					type: "string"
 				}, {
-					label: "ASN Date",
-					property: "ASNDate",
+					label: "ASN Date/Time",
+					property: "ASNDateTime",
 					type: "string"
-				}, {
-					label: "Created By",
-					property: "ApprovedBy",
-					type: "string"
-				}, {
-					label: "Created On",
-					property: "ApprovedDate",
-					type: "string"
-				}, {
+				},{
 					label: "PO Number",
 					property: "PoNumber",
+					type: "string"
+				},{
+					label: "Schedule Number",
+					property: "ScheduleNumber",
 					type: "string"
 				}, {
 					label: "Gate Entry Status",
@@ -396,86 +392,6 @@ sap.ui.define([
 				}, {
 					label: "Material Desription",
 					property: "MaterialDescription",
-					type: "string"
-				}, {
-					label: "ASN Qty",
-					property: "ASNQuantity",
-					type: "string"
-				}, {
-					label: "ASN Qty UOM",
-					property: "UOM",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
-					type: "string"
-				}, {
-					label: "",
-					property: "",
 					type: "string"
 				}];
 				oSettings = {
