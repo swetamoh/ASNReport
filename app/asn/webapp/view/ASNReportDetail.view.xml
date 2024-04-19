@@ -159,7 +159,7 @@
 						<Label text="Scheduled Qty"/>
 					</Column>
 					<Column demandPopin="true" width="6rem">
-						<Label text="ASN/Transit Qty"/>
+						<Label text="ASN/Transit Qty" wrapping="true"/>
 					</Column>
 					<Column demandPopin="true" width="8rem">
 						<Label text="Balance Qty"/>
@@ -189,7 +189,7 @@
 						<Label text="CGST Amt ({detailModel>/results/0/Currency})" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
-						<Label text="SGST % / UGST %" />
+						<Label text="SGST % / UGST %" wrapping="true"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
 						<Label text="SGST Amt / UGST Amt ({detailModel>/results/0/Currency})" wrapping="true"/>
