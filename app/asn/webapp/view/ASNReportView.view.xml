@@ -2,7 +2,7 @@
 	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" class="sapUiSizeCompact">
 		<Page id="_IDGenPage1" title="ASN Report" titleAlignment="Center"
         showNavButton="true" navButtonPress="sap.fiori.asn.controller.formatter.onNavBack"
-        class="sapUiSizeCompact">
+        class="sapUiSizeCompact" enableScrolling="false">
 			<content>
 				 <l:VerticalLayout width="100%">
 					<fb:FilterBar useToolbar="false" showFilterConfiguration="false" search="onFilterGoPress" showClearOnFB="true" clear="onFilterClear">
@@ -63,7 +63,7 @@
                     <Button icon="sap-icon://action-settings" id="CreateButton" type="Emphasized" press="onColumnSelection" tooltip="Settings"/>
 					<Button text="Download" icon="sap-icon://download" press="onDataExport" type="Emphasized"/>
 				</OverflowToolbar>
-				<ScrollContainer horizontal="true">
+				<ScrollContainer horizontal="true" vertical="true" height="60%">
 					<Table id="TableDataId" itemPress="onItempress" items="{path:'DataModel>/results'}" mode="SingleSelectMaster"
 						sticky="ColumnHeaders">
 						<columns>
