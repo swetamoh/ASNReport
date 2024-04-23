@@ -1,5 +1,5 @@
-// const cds = require('@sap/cds');
-const axios = require('axios');
+const cds = require('@sap/cds');
+// const axios = require('axios');
 
 module.exports = (srv) => {
 
@@ -22,28 +22,24 @@ module.exports = (srv) => {
 };
 
 async function getASNHeaderList(params) {
-
     try {
         const {
             username, AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate,
             InvoiceStatus, MRNStatus, ApprovedBy
         } = params;
 
-        const token = await generateToken(username);
+        const token = await generateToken(username),
+            legApi = await cds.connect.to('Legacy'),
+            response = await legApi.send({
+                query: `GET GetASNHeaderList?RequestBy='${username}'&AddressCode='${AddressCode}'&PoNumber='${PoNumber}'&ASNNumber='${ASNNumber}'&ASNFromdate='${ASNFromdate}'&ASNTodate='${ASNTodate}'&InvoiceStatus='${InvoiceStatus}'&MRNStatus='${MRNStatus}'&ApprovedBy='${ApprovedBy}'`,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
 
-        const url = `https://imperialauto.co:84/IAIAPI.asmx/GetASNHeaderList?RequestBy='${username}'&AddressCode='${AddressCode}'&PoNumber='${PoNumber}'&ASNNumber='${ASNNumber}'&ASNFromdate='${ASNFromdate}'&ASNTodate='${ASNTodate}'&InvoiceStatus='${InvoiceStatus}'&MRNStatus='${MRNStatus}'&ApprovedBy='${ApprovedBy}'`;
-        const response = await axios({
-            method: 'get',
-            url: url,
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            data: {}
-        });
-
-        if (response.data && response.data.d) {
-            return JSON.parse(response.data.d);
+        if (response.d) {
+            return JSON.parse(response.d);
         } else {
             return {
                 error: response.data.ErrorDescription
@@ -57,21 +53,17 @@ async function getASNHeaderList(params) {
 
 async function getASNDetailList(username, AddressCode, ASNNumber, UnitCode) {
     try {
-
-        const token = await generateToken(username);
-
-        const response = await axios({
-            method: 'get',
-            url: `https://imperialauto.co:84/IAIAPI.asmx/GetASNDetailList?RequestBy='${username}'&AddressCode='${AddressCode}'&ASNNumber='${ASNNumber}'&UnitCode='${UnitCode}'`,
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            data: {}
-        });
-
-        if (response.data && response.data.d) {
-            return JSON.parse(response.data.d);
+        const token = await generateToken(username),
+            legApi = await cds.connect.to('Legacy'),
+            response = await legApi.send({
+                query: `GET GetASNDetailList?RequestBy='${username}'&AddressCode='${AddressCode}'&ASNNumber='${ASNNumber}'&UnitCode='${UnitCode}'`,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+        if (response.d) {
+            return JSON.parse(response.d);
         } else {
             return {
                 error: response.data.ErrorDescription
@@ -86,19 +78,19 @@ async function getASNDetailList(username, AddressCode, ASNNumber, UnitCode) {
 
 async function generateToken(username) {
     try {
-        const response = await axios({
-            method: 'post',
-            url: 'https://imperialauto.co:84/IAIAPI.asmx/GenerateToken',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: {
-                "InputKey": username
-            }
-        });
+        const legApi = await cds.connect.to('Legacy'),
+            response = await legApi.send({
+                query: `POST GenerateToken`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    "InputKey": username
+                }
+            });
 
-        if (response.data && response.data.d) {
-            return response.data.d;
+        if (response.d) {
+            return response.d;
         } else {
             console.error('Error parsing token response:', response.data);
             throw new Error('Error parsing the token response from the API.');
