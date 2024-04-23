@@ -94,12 +94,12 @@
 							<Column id="invoiceStatus_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Invoice Status"/>
 							</Column>
-							<!-- <Column id="gateEntryNo_col" minScreenWidth="Tablet" demandPopin="true" width="10rem">
+							<Column id="gateEntryNo_col" minScreenWidth="Tablet" demandPopin="true" width="10rem">
 								<Text text="Gate Entry No"/>
 							</Column>
 							<Column id="gateEntryDate_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Gate Entry Date" />
-							</Column> -->
+							</Column>
 							<Column id="plantCode_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Plant Code"/>
 							</Column>
@@ -132,8 +132,8 @@
 									<ObjectStatus id ="gateStatId" text="{DataModel>GateEntryStatus}" state="{path:'DataModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 									<ObjectStatus id ="grnStatId" text="{DataModel>GRNStatus}" state="{path:'DataModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 									<ObjectStatus id ="invStatId" text="{DataModel>InvoiceStatus}" state="{path:'DataModel>InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
-									<!-- <Text id ="gateEntryNoId" text=""/>
-									<Text id ="gateentryDateId" text=""/> -->
+									<Text id ="gateEntryNoId" text="{DataModel>GateEntryNumber}"/>
+									<Text id ="gateentryDateId" text="{DataModel>GateEntryDate}"/>
 									<Text id ="plantCodeId" text="{DataModel>PlantCode} "></Text>
 									<Text id ="plantNameId" text="{DataModel>PlantName} "></Text>
 									<Text id ="venCodeId" text="{DataModel>VendorCode} "></Text>
