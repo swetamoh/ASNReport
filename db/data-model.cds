@@ -20,6 +20,8 @@ entity GetASNHeaderList{
   ASNQuantity: String;
   ScheduleNumber: String;
   ASNDateTime: String;
+  GateEntryNumber: String;
+  GateEntryDate: String;
 }
 
 entity GetASNDetailList{
