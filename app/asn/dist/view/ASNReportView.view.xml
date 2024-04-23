@@ -1,0 +1,165 @@
+<mvc:View controllerName="sap.fiori.asn.controller.ASNReportView" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" class="sapUiSizeCompact">
+		<Page id="_IDGenPage1" title="ASN Report" titleAlignment="Center"
+        showNavButton="true" navButtonPress="sap.fiori.asn.controller.formatter.onNavBack"
+        class="sapUiSizeCompact" enableScrolling="false">
+			<content>
+				 <l:VerticalLayout width="100%">
+					<fb:FilterBar useToolbar="false" showFilterConfiguration="false" search="onFilterGoPress" showClearOnFB="true" clear="onFilterClear">
+						<fb:filterItems>
+							<fb:FilterItem name="A" label="ASN Number">
+								<fb:control>
+									<Input id="asnnumId" value="{localModel>/ASNNumber}"/>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="B" label="PO Number">
+								<fb:control>
+									<Input id="ponumId" value="{localModel>/PONumber}"/>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="C" label="Vendor Code" mandatory="true">
+								<fb:control>
+									<Input id="vendorCodeId" value="{localModel>/VendorCode}"/>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="D" label="ASN Start Date" mandatory="true">
+								<fb:control>
+									<DatePicker id="startDateId" valueFormat="yyyyMMdd" value="{localModel>/StartDate}" class="disablekb" change="onFromDateChange"/>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="E" label="ASN End Date" mandatory="true">
+								<fb:control>
+									<DatePicker id="endDateId" valueFormat="yyyyMMdd" value="{localModel>/EndDate}" class="disablekb"/>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="F" label="Created By">
+								<fb:control>
+									<Input id="createById" value="{localModel>/CreatedBy}"/>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="G" label="Invoice Status">
+								<fb:control>
+									<Select id="invoicestatusid" forceSelection="false" selectedKey="{localModel>/InvoiceStatus}">
+               							<core:Item id="_IDGenItem1" key="PENDING" text="PENDING"/>
+               							<core:Item id="_IDGenItem2" key="PARTIALLY" text="PARTIALLY"/>
+                						<core:Item id="_IDGenItem3" key="COMPLETED" text="COMPLETED"/>
+            						</Select>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="I" label="GRN Status">
+								<fb:control>
+									<Select id="grnstatusid" forceSelection="false" selectedKey="{localModel>/GRNStatus}">
+               							<core:Item id="_IDGenItem4" key="PENDING" text="PENDING"/>
+               							<core:Item id="_IDGenItem5" key="PARTIALLY" text="PARTIALLY"/>
+                						<core:Item id="_IDGenItem6" key="COMPLETED" text="COMPLETED"/>
+            						</Select>
+								</fb:control>
+							</fb:FilterItem>
+						</fb:filterItems>
+					</fb:FilterBar>
+				</l:VerticalLayout> 
+				<OverflowToolbar >
+                    <ToolbarSpacer/>
+                    <Button icon="sap-icon://action-settings" id="CreateButton" type="Emphasized" press="onColumnSelection" tooltip="Settings"/>
+					<Button text="Download" icon="sap-icon://download" press="onDataExport" type="Emphasized"/>
+				</OverflowToolbar>
+				<ScrollContainer horizontal="true" vertical="true" height="60%">
+					<Table id="TableDataId" itemPress="onItempress" items="{path:'DataModel>/results'}" mode="SingleSelectMaster"
+						sticky="ColumnHeaders">
+						<columns>
+							<Column id="asnNumber_col" width="10rem" minScreenWidth="Tablet" demandPopin="true">
+								<Text text="ASN Number"/>
+							</Column>
+							<Column id="asnDate_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="ASN Date/Time"/>
+							</Column>
+							<!-- <Column id="createdBy_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Created By"/>
+							</Column>
+							<Column id="createdOn_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Created On"/>
+							</Column> -->
+							<Column id="poNumber_col" minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="PO Number"/>
+							</Column>
+							<Column id="saNumber_col" minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="Schedule Number"/>
+							</Column>
+							<Column id="gateEntryStatus_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Gate Entry Status"/>
+							</Column>
+							<Column id="grnStatus_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="GRN Status"/>
+							</Column>
+							<Column id="invoiceStatus_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Invoice Status"/>
+							</Column>
+							<Column id="gateEntryNo_col" minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="Gate Entry No"/>
+							</Column>
+							<Column id="gateEntryDate_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Gate Entry Date" />
+							</Column>
+							<Column id="plantCode_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Plant Code"/>
+							</Column>
+							<Column id="plantName_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Plant Name"/>
+							</Column>
+							<Column id="vendorCode_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="Vendor Code"/>
+							</Column>
+							<Column id="vendorName_col" minScreenWidth="Tablet" demandPopin="true" width="10rem">
+								<Text text="Vendor Name"/>
+							</Column>
+							<Column id="material_col" minScreenWidth="Tablet" demandPopin="true" width="12rem">
+								<Text text="Material"/>
+							</Column>
+							<Column id="asnQty_col" minScreenWidth="Tablet" demandPopin="true" width="8rem" visible="false">
+								<Text text="ASN Qty"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem id="tableTempId" type="Navigation">
+								<cells>
+									<ObjectIdentifier id ="asnNoId" title="{DataModel>ASNNumber}"></ObjectIdentifier>
+									<!-- <Text id ="asnDateId" text="{path:'DataModel>ASNDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text> -->
+									<Text id ="asnTimeId" text="{DataModel>ASNDateTime}"/>
+									<!-- <Text id ="appById" text="{DataModel>ApprovedBy}"/>
+									<Text id ="appDateId" text="{path:'DataModel>ApprovedDate', formatter:'sap.fiori.asn.controller.formatter.formatDate'}"></Text>	 -->
+									<Text id ="poNoId" text="{DataModel>PoNumber} "></Text>
+									<Text id ="saNoId" text="{DataModel>ScheduleNumber} "></Text>
+									<ObjectStatus id ="gateStatId" text="{DataModel>GateEntryStatus}" state="{path:'DataModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<ObjectStatus id ="grnStatId" text="{DataModel>GRNStatus}" state="{path:'DataModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<ObjectStatus id ="invStatId" text="{DataModel>InvoiceStatus}" state="{path:'DataModel>InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<Text id ="gateEntryNoId" text=""/>
+									<Text id ="gateentryDateId" text=""/>
+									<Text id ="plantCodeId" text="{DataModel>PlantCode} "></Text>
+									<Text id ="plantNameId" text="{DataModel>PlantName} "></Text>
+									<Text id ="venCodeId" text="{DataModel>VendorCode} "></Text>
+									<Text id ="venNameId" text="{DataModel>VendorName} "></Text>
+									<FlexBox id="_IDGenFlexBox1" direction="Column" class="sapUiNoMarginTop">
+                                        <items>
+                                            <ObjectIdentifier id ="matId" title="{DataModel>MaterialCode}"/>
+                                            <Text id ="materialDescId" text="{DataModel>MaterialDescription}"/>
+                                        </items>
+                                    </FlexBox>
+									<Text id ="asnQtyId" text="{DataModel>ASNQuantity} {DataModel>UOM}"></Text>
+									<!-- <ObjectStatus text="{DataModel>GateEntryStatus}" state="{=${DataModel>GateEntryStatus} === 'Completed' || 'COMPLETED' ? 'Success' : 'Error' }"></ObjectStatus>
+									<ObjectStatus text="{DataModel>GRNStatus}" state="{=${DataModel>GRNStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus>
+									<ObjectStatus text="{DataModel>InvoiceStatus}" state="{=${DataModel>InvoiceStatus} === 'Completed' ? 'Success' : 'Error' }"></ObjectStatus> -->
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</ScrollContainer>
+			</content>
+			<!-- <footer>
+				<Bar>
+					<contentRight>
+						<Button text="Download" icon="sap-icon://download" press="onDataExport" type="Emphasized"/>
+					</contentRight>
+				</Bar>
+			</footer> -->
+		</Page>
+</mvc:View>

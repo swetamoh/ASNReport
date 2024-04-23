@@ -1,10 +1,10 @@
-const cds = require('@sap/cds');
+// const cds = require('@sap/cds');
 const axios = require('axios');
 
 module.exports = (srv) => {
 
     const { GetASNHeaderList, GetASNDetailList } = srv.entities;
-    
+
     srv.on('READ', GetASNHeaderList, async (req) => {
         const params = req._queryOptions;
         const results = await getASNHeaderList(params);
@@ -14,25 +14,29 @@ module.exports = (srv) => {
     });
 
     srv.on('READ', GetASNDetailList, async (req) => {
-        const {AddressCode, ASNNumber, UnitCode} = req._queryOptions;
-        const results = await getASNDetailList(AddressCode, ASNNumber, UnitCode);
+        const { username, AddressCode, ASNNumber, UnitCode } = req._queryOptions;
+        const results = await getASNDetailList(username, AddressCode, ASNNumber, UnitCode);
         if (results.error) req.reject(500, results.error);
         return results;
     });
 };
 
 async function getASNHeaderList(params) {
+
     try {
         const {
-            AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate,
+            username, AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate,
             InvoiceStatus, MRNStatus, ApprovedBy
         } = params;
-        const url = `https://imperialauto.co:84/IAIAPI.asmx/GetASNHeaderList?RequestBy='Manikandan'&AddressCode='${AddressCode}'&PoNumber='${PoNumber}'&ASNNumber='${ASNNumber}'&ASNFromdate='${ASNFromdate}'&ASNTodate='${ASNTodate}'&InvoiceStatus='${InvoiceStatus}'&MRNStatus='${MRNStatus}'&ApprovedBy='${ApprovedBy}'`;
+
+        const token = await generateToken(username);
+
+        const url = `https://imperialauto.co:84/IAIAPI.asmx/GetASNHeaderList?RequestBy='${username}'&AddressCode='${AddressCode}'&PoNumber='${PoNumber}'&ASNNumber='${ASNNumber}'&ASNFromdate='${ASNFromdate}'&ASNTodate='${ASNTodate}'&InvoiceStatus='${InvoiceStatus}'&MRNStatus='${MRNStatus}'&ApprovedBy='${ApprovedBy}'`;
         const response = await axios({
             method: 'get',
             url: url,
             headers: {
-                'Authorization': `Bearer IncMpsaotdlKHYyyfGiVDg==`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             data: {}
@@ -51,13 +55,16 @@ async function getASNHeaderList(params) {
     }
 }
 
-async function getASNDetailList(AddressCode, ASNNumber, UnitCode) {
+async function getASNDetailList(username, AddressCode, ASNNumber, UnitCode) {
     try {
+
+        const token = await generateToken(username);
+
         const response = await axios({
             method: 'get',
-            url: `https://imperialauto.co:84/IAIAPI.asmx/GetASNDetailList?RequestBy='Manikandan'&AddressCode='${AddressCode}'&ASNNumber='${ASNNumber}'&UnitCode='${UnitCode}'`,
+            url: `https://imperialauto.co:84/IAIAPI.asmx/GetASNDetailList?RequestBy='${username}'&AddressCode='${AddressCode}'&ASNNumber='${ASNNumber}'&UnitCode='${UnitCode}'`,
             headers: {
-                'Authorization': `Bearer IncMpsaotdlKHYyyfGiVDg==`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             data: {}
@@ -76,8 +83,8 @@ async function getASNDetailList(AddressCode, ASNNumber, UnitCode) {
     }
 }
 
-/*
-async function generateToken(username){
+
+async function generateToken(username) {
     try {
         const response = await axios({
             method: 'post',
@@ -101,4 +108,3 @@ async function generateToken(username){
         throw new Error('Unable to generate token.');
     }
 }
-*/

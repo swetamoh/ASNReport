@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="vendorInvNumF4Id" title="Invoice Number" noDataText="No Invoice Number Found" search="vendorInvNumValueHelpSearch"
+		confirm="vendorInvNumValueHelpClose">
+		<items>
+			<StandardListItem id="vendorInvNumTempId" title="{VendorInvoice}" description="{InvoiceAmount}"/>
+		</items>
+	</SelectDialog>
+</core:FragmentDefinition>

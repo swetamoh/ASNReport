@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="vendorF4Id" title="Vendor" noDataText="No Vendor Found" search="vendorHelpSearch"
+		confirm="vendorValueHelpClose">
+		<items>
+			<StandardListItem id="vendorTempId" title="{Supplier}" description="{SupplierName}"/>
+		</items>
+	</SelectDialog>
+</core:FragmentDefinition>
