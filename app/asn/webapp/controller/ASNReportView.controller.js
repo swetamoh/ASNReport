@@ -369,6 +369,14 @@ sap.ui.define([
 					label: "Invoice Status",
 					property: "InvoiceStatus",
 					type: "string"
+				},{
+					label: "Gate Entry No",
+					property: "GateEntryNumber",
+					type: "string"
+				}, {
+					label: "Gate Entry Date",
+					property: "GateEntryDate",
+					type: "string"
 				}, {
 					label: "Plant Code",
 					property: "PlantCode",
