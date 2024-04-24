@@ -148,7 +148,8 @@ sap.ui.define([
 			if (!data.GRNStatus) {
 				data.GRNStatus = "";
 			}
-
+			that.DataModel.setData([]);
+			that.DataModel.refresh();
 			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
 					username: this.LoggedUser,
@@ -349,11 +350,11 @@ sap.ui.define([
 					label: "ASN Date/Time",
 					property: "ASNDateTime",
 					type: "string"
-				},{
+				}, {
 					label: "PO Number",
 					property: "PoNumber",
 					type: "string"
-				},{
+				}, {
 					label: "Schedule Number",
 					property: "ScheduleNumber",
 					type: "string"
@@ -369,7 +370,7 @@ sap.ui.define([
 					label: "Invoice Status",
 					property: "InvoiceStatus",
 					type: "string"
-				},{
+				}, {
 					label: "Gate Entry No",
 					property: "GateEntryNumber",
 					type: "string"

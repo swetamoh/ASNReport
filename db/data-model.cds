@@ -22,6 +22,7 @@ entity GetASNHeaderList{
   ASNDateTime: String;
   GateEntryNumber: String;
   GateEntryDate: String;
+  ASNStatus: String;
 }
 
 entity GetASNDetailList{

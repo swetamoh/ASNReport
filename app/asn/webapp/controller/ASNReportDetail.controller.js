@@ -31,6 +31,8 @@ sap.ui.define([
 				var oModel = this.getOwnerComponent().getModel();
 				var oUploadSet = this.byId("uploadSet");
 				oUploadSet.removeAllItems();
+				that.detailModel.setData([]);
+				that.detailModel.refresh();
 				oModel.read("/GetASNDetailList", {
 					urlParameters: {
 						username: this.LoggedUser,
