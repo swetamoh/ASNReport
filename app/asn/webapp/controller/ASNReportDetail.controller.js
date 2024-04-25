@@ -16,6 +16,7 @@ sap.ui.define([
 			this.router = sap.ui.core.UIComponent.getRouterFor(this);
 			this.router.attachRouteMatched(this.handleRouteMatched, this);
 			this.byId("uploadSet").attachEvent("openPressed", this.onOpenPressed, this);
+			this.byId("uploadSet").setUploadEnabled(false);
 		},
 
 		handleRouteMatched: function (oEvent) {
@@ -77,7 +78,7 @@ sap.ui.define([
 								new sap.m.ObjectAttribute({ title: "File Size", text: fileData.size.toString() })
 							]
 						});
-						that.byId("uploadSet").setUploadEnabled(false);
+						
 						oItem.setVisibleEdit(false).setVisibleRemove(false);
 						oUploadSet.addItem(oItem);
 					});
