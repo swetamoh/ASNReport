@@ -58,6 +58,7 @@ sap.ui.define([
 			}
 		},
 		_fetchFilesForPoNum: function (AsnNum) {
+			var that = this;
 			var oModel = this.getView().getModel("catalog");
 			var oUploadSet = this.byId("uploadSet");
 			oUploadSet.removeAllItems();
@@ -76,7 +77,8 @@ sap.ui.define([
 								new sap.m.ObjectAttribute({ title: "File Size", text: fileData.size.toString() })
 							]
 						});
-
+						that.byId("uploadSet").setUploadEnabled(false);
+						oItem.setVisibleEdit(false).setVisibleRemove(false);
 						oUploadSet.addItem(oItem);
 					});
 				},
