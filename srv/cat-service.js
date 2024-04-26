@@ -7,7 +7,8 @@ module.exports = (srv) => {
 
     srv.on('READ', GetASNHeaderList, async (req) => {
         const params = req._queryOptions;
-        const results = await getASNHeaderList(params);
+        const loginid = req.headers.loginid;
+        const results = await getASNHeaderList(params,loginid);
         if (results.error) req.reject(500, results.error);
         return results;
 
@@ -15,23 +16,24 @@ module.exports = (srv) => {
 
     srv.on('READ', GetASNDetailList, async (req) => {
         const { username, AddressCode, ASNNumber, UnitCode } = req._queryOptions;
-        const results = await getASNDetailList(username, AddressCode, ASNNumber, UnitCode);
+        const loginid = req.headers.loginid;
+        const results = await getASNDetailList(username, AddressCode, ASNNumber, UnitCode,loginid);
         if (results.error) req.reject(500, results.error);
         return results;
     });
 };
 
-async function getASNHeaderList(params) {
+async function getASNHeaderList(params,loginid) {
     try {
         const {
             username, AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate,
             InvoiceStatus, MRNStatus, ApprovedBy
         } = params;
 
-        const token = await generateToken(username),
+        const token = await generateToken(loginid),
             legApi = await cds.connect.to('Legacy'),
             response = await legApi.send({
-                query: `GET GetASNHeaderList?RequestBy='${username}'&AddressCode='${AddressCode}'&PoNumber='${PoNumber}'&ASNNumber='${ASNNumber}'&ASNFromdate='${ASNFromdate}'&ASNTodate='${ASNTodate}'&InvoiceStatus='${InvoiceStatus}'&MRNStatus='${MRNStatus}'&ApprovedBy='${ApprovedBy}'`,
+                query: `GET GetASNHeaderList?RequestBy='${loginid}'&AddressCode='${AddressCode}'&PoNumber='${PoNumber}'&ASNNumber='${ASNNumber}'&ASNFromdate='${ASNFromdate}'&ASNTodate='${ASNTodate}'&InvoiceStatus='${InvoiceStatus}'&MRNStatus='${MRNStatus}'&ApprovedBy='${ApprovedBy}'`,
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -51,12 +53,12 @@ async function getASNHeaderList(params) {
     }
 }
 
-async function getASNDetailList(username, AddressCode, ASNNumber, UnitCode) {
+async function getASNDetailList(username, AddressCode, ASNNumber, UnitCode,loginid) {
     try {
-        const token = await generateToken(username),
+        const token = await generateToken(loginid),
             legApi = await cds.connect.to('Legacy'),
             response = await legApi.send({
-                query: `GET GetASNDetailList?RequestBy='${username}'&AddressCode='${AddressCode}'&ASNNumber='${ASNNumber}'&UnitCode='${UnitCode}'`,
+                query: `GET GetASNDetailList?RequestBy='${loginid}'&AddressCode='${AddressCode}'&ASNNumber='${ASNNumber}'&UnitCode='${UnitCode}'`,
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
