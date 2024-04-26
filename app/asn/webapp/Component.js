@@ -67,8 +67,11 @@ sap.ui.define([
                                 } else {
                                     sessionStorage.setItem('AddressCode', 'JSE-01-01');
                                 }
+                                this.setHeaders(res.login_name[0], res.type[0].substring(0, 1).toUpperCase());
                             }
                         });
+                    }else{
+                        this.setHeaders("RA046 ", "E");
                     }
                 });
 
@@ -81,9 +84,16 @@ sap.ui.define([
                         MessageBox.error(JSON.parse(responseText).error.message.value);
                     }
                 });
+            },
+            setHeaders: function (loginId, loginType) {
+                this.getView().getModel().setHeaders({
+                    "loginId": loginId,
+                    "loginType": loginType
+                });
+        
                 // enable routing
                 this.getRouter().initialize();
-            }
+            },
         });
     }
 );
