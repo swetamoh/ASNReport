@@ -62,11 +62,7 @@ sap.ui.define([
                             type: "GET",
                             success: res => {
                                 sessionStorage.setItem('LoggedUser', res.email);
-                                if( res.login_name[0] !==  res.email){
                                 sessionStorage.setItem('AddressCode', res.login_name[0]);
-                                } else {
-                                    sessionStorage.setItem('AddressCode', 'JSE-01-01');
-                                }
                                 this.setHeaders(res.login_name[0], res.type[0].substring(0, 1).toUpperCase());
                             }
                         });
@@ -86,7 +82,7 @@ sap.ui.define([
                 });
             },
             setHeaders: function (loginId, loginType) {
-                this.getView().getModel().setHeaders({
+                this.getModel().setHeaders({
                     "loginId": loginId,
                     "loginType": loginType
                 });

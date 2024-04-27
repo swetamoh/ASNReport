@@ -46,11 +46,31 @@ sap.ui.define([
 			this.ASNfromdate = dateFormat1.format(this.ASNfromdate);
 			this.ASNtodate = this.ASNtodate.substring(0, 2) + " " + this.ASNtodate.substring(2, 5) + " " + this.ASNtodate.substring(5, 9);
 			this.ASNfromdate = this.ASNfromdate.substring(0, 2) + " " + this.ASNfromdate.substring(2, 5) + " " + this.ASNfromdate.substring(5, 9);
-
-			var that = this;
 			this.AddressCode = sessionStorage.getItem("AddressCode") || 'JSE-01-01';
-			this.getView().byId("vendorCodeId").setValue(this.AddressCode);
 			this.LoggedUser = sessionStorage.getItem("LoggedUser") || "rajeshsehgal@impauto.com";
+			if (this.getModel().getHeaders().loginType === "P") {
+				this.getView().byId("vendorCodeId").setValue(this.AddressCode);
+				this.getASNData();
+			}
+
+			var datePicker = this.getView().byId("startDateId");
+
+			datePicker.addDelegate({
+				onAfterRendering: function () {
+					datePicker.$().find('INPUT').attr('disabled', true).css('color', '#000000');
+				}
+			}, datePicker);
+
+			datePicker = this.getView().byId("endDateId");
+
+			datePicker.addDelegate({
+				onAfterRendering: function () {
+					datePicker.$().find('INPUT').attr('disabled', true).css('color', '#000000');
+				}
+			}, datePicker);
+		},
+		getASNData: function () {
+			var that = this;
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
@@ -75,28 +95,12 @@ sap.ui.define([
 					MessageBox.error(value.error.message.value);
 				}
 			});
-
-			var datePicker = this.getView().byId("startDateId");
-
-			datePicker.addDelegate({
-				onAfterRendering: function () {
-					datePicker.$().find('INPUT').attr('disabled', true).css('color', '#000000');
-				}
-			}, datePicker);
-
-			datePicker = this.getView().byId("endDateId");
-
-			datePicker.addDelegate({
-				onAfterRendering: function () {
-					datePicker.$().find('INPUT').attr('disabled', true).css('color', '#000000');
-				}
-			}, datePicker);
 		},
 		onFilterClear: function () {
 			var data = this.localModel.getData();
 			data.ASNNumber = "";
 			data.PONumber = "";
-			//data.VendorCode = "";
+			data.VendorCode = "";
 			data.CreateStartDate = "";
 			data.CreateEndDate = "";
 			data.InvoiceStatus = "";
@@ -105,7 +109,7 @@ sap.ui.define([
 			var oView = this.getView();
 			oView.byId("asnnumId").setValue("");
 			oView.byId("ponumId").setValue("");
-			//oView.byId("vendorCodeId").setValue("");
+			oView.byId("vendorCodeId").setValue("");
 			oView.byId("createstartDateId").setValue("");
 			oView.byId("createendDateId").setValue("");
 			oView.byId("invoicestatusid").setSelectedKey("");
@@ -135,7 +139,12 @@ sap.ui.define([
 				data.PONumber = "";
 			}
 			if (!data.VendorCode) {
-				this.VendorCode = this.AddressCode;
+				if (this.getModel().getHeaders().loginType === "P") {
+					this.VendorCode = this.AddressCode;
+				} else {
+					MessageBox.error("Please enter Vendor Code to proceed");
+					return;
+				}
 			} else if (data.VendorCode) {
 				this.VendorCode = data.VendorCode;
 			}
