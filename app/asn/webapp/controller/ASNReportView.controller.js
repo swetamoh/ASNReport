@@ -48,7 +48,7 @@ sap.ui.define([
 			this.ASNfromdate = this.ASNfromdate.substring(0, 2) + " " + this.ASNfromdate.substring(2, 5) + " " + this.ASNfromdate.substring(5, 9);
 			this.AddressCode = sessionStorage.getItem("AddressCode") || 'JSE-01-01';
 			this.LoggedUser = sessionStorage.getItem("LoggedUser") || "rajeshsehgal@impauto.com";
-			if (this.getModel().getHeaders().loginType === "P") {
+			if (this.getOwnerComponent().getModel().getHeaders().loginType === "P") {
 				this.getView().byId("vendorCodeId").setValue(this.AddressCode);
 				this.getASNData();
 			}
@@ -139,7 +139,7 @@ sap.ui.define([
 				data.PONumber = "";
 			}
 			if (!data.VendorCode) {
-				if (this.getModel().getHeaders().loginType === "P") {
+				if (this.getOwnerComponent().getModel().getHeaders().loginType === "P") {
 					this.VendorCode = this.AddressCode;
 				} else {
 					MessageBox.error("Please enter Vendor Code to proceed");
