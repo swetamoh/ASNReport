@@ -62,7 +62,9 @@ sap.ui.define([
                             type: "GET",
                             success: res => {
                                 sessionStorage.setItem('LoggedUser', res.email);
+                                if(!sessionStorage.getItem('AddressCode')){
                                 sessionStorage.setItem('AddressCode', res.login_name[0]);
+                                }
                                 this.setHeaders(res.login_name[0], res.type[0].substring(0, 1).toUpperCase());
                             }
                         });
