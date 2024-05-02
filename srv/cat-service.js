@@ -8,25 +8,25 @@ module.exports = (srv) => {
     srv.on('READ', GetASNHeaderList, async (req) => {
         const params = req._queryOptions;
         const loginid = req.headers.loginid;
-        const results = await getASNHeaderList(params,loginid);
+        const results = await getASNHeaderList(params, loginid);
         if (results.error) req.reject(500, results.error);
         return results;
 
     });
 
     srv.on('READ', GetASNDetailList, async (req) => {
-        const { username, AddressCode, ASNNumber, UnitCode } = req._queryOptions;
+        const { AddressCode, ASNNumber, UnitCode } = req._queryOptions;
         const loginid = req.headers.loginid;
-        const results = await getASNDetailList(username, AddressCode, ASNNumber, UnitCode,loginid);
+        const results = await getASNDetailList(AddressCode, ASNNumber, UnitCode, loginid);
         if (results.error) req.reject(500, results.error);
         return results;
     });
 };
 
-async function getASNHeaderList(params,loginid) {
+async function getASNHeaderList(params, loginid) {
     try {
         const {
-            username, AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate,
+            AddressCode, PoNumber, ASNNumber, ASNFromdate, ASNTodate,
             InvoiceStatus, MRNStatus, ApprovedBy
         } = params;
 
@@ -44,7 +44,7 @@ async function getASNHeaderList(params,loginid) {
             return JSON.parse(response.d);
         } else {
             return {
-                error: response.data.ErrorDescription
+                error: response.ErrorDescription
             }
         }
     } catch (error) {
@@ -53,7 +53,7 @@ async function getASNHeaderList(params,loginid) {
     }
 }
 
-async function getASNDetailList(username, AddressCode, ASNNumber, UnitCode,loginid) {
+async function getASNDetailList(AddressCode, ASNNumber, UnitCode, loginid) {
     try {
         const token = await generateToken(loginid),
             legApi = await cds.connect.to('Legacy'),
@@ -68,7 +68,7 @@ async function getASNDetailList(username, AddressCode, ASNNumber, UnitCode,login
             return JSON.parse(response.d);
         } else {
             return {
-                error: response.data.ErrorDescription
+                error: response.ErrorDescription
             }
         }
     } catch (error) {

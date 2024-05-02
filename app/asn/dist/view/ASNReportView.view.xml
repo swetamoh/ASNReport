@@ -32,9 +32,9 @@
 									<DatePicker id="endDateId" valueFormat="yyyyMMdd" value="{localModel>/EndDate}" class="disablekb"/>
 								</fb:control>
 							</fb:FilterItem>
-							<fb:FilterItem name="F" label="Created By">
+							<fb:FilterItem name="F" label="Created By" visible="false"> 
 								<fb:control>
-									<Input id="createById" value="{localModel>/CreatedBy}"/>
+									<Input id="createById" value="{localModel>/CreatedBy}" visible="false"/>
 								</fb:control>
 							</fb:FilterItem>
 							<fb:FilterItem name="G" label="Invoice Status">
@@ -94,6 +94,9 @@
 							<Column id="invoiceStatus_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
 								<Text text="Invoice Status"/>
 							</Column>
+							<Column id="asnStatus_col" minScreenWidth="Tablet" demandPopin="true" width="8rem">
+								<Text text="ASN Status"/>
+							</Column>
 							<Column id="gateEntryNo_col" minScreenWidth="Tablet" demandPopin="true" width="10rem">
 								<Text text="Gate Entry No"/>
 							</Column>
@@ -132,8 +135,9 @@
 									<ObjectStatus id ="gateStatId" text="{DataModel>GateEntryStatus}" state="{path:'DataModel>GateEntryStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 									<ObjectStatus id ="grnStatId" text="{DataModel>GRNStatus}" state="{path:'DataModel>GRNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
 									<ObjectStatus id ="invStatId" text="{DataModel>InvoiceStatus}" state="{path:'DataModel>InvoiceStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
-									<Text id ="gateEntryNoId" text=""/>
-									<Text id ="gateentryDateId" text=""/>
+									<ObjectStatus id ="asnStatId" text="{DataModel>ASNStatus}" state="{path:'DataModel>ASNStatus', formatter:'sap.fiori.asn.controller.formatter.Status'}"/>
+									<Text id ="gateEntryNoId" text="{DataModel>GateEntryNumber}"/>
+									<Text id ="gateentryDateId" text="{DataModel>GateEntryDate}"/>
 									<Text id ="plantCodeId" text="{DataModel>PlantCode} "></Text>
 									<Text id ="plantNameId" text="{DataModel>PlantName} "></Text>
 									<Text id ="venCodeId" text="{DataModel>VendorCode} "></Text>

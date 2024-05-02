@@ -1,6 +1,7 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"sap/ui/core/mvc/Controller",
+	"sap/m/MessageBox"
+], function (Controller,MessageBox) {
 	"use strict";
 
 	return Controller.extend("sap.fiori.asn.controller.ASNReportDetail", {
@@ -15,6 +16,7 @@ sap.ui.define([
 			this.router = sap.ui.core.UIComponent.getRouterFor(this);
 			this.router.attachRouteMatched(this.handleRouteMatched, this);
 			this.byId("uploadSet").attachEvent("openPressed", this.onOpenPressed, this);
+			this.byId("uploadSet").setUploadEnabled(false);
 		},
 
 		handleRouteMatched: function (oEvent) {
@@ -31,6 +33,8 @@ sap.ui.define([
 				var oModel = this.getOwnerComponent().getModel();
 				var oUploadSet = this.byId("uploadSet");
 				oUploadSet.removeAllItems();
+				that.detailModel.setData([]);
+				that.detailModel.refresh();
 				oModel.read("/GetASNDetailList", {
 					urlParameters: {
 						username: this.LoggedUser,
@@ -55,6 +59,7 @@ sap.ui.define([
 			}
 		},
 		_fetchFilesForPoNum: function (AsnNum) {
+			var that = this;
 			var oModel = this.getView().getModel("catalog");
 			var oUploadSet = this.byId("uploadSet");
 			oUploadSet.removeAllItems();
@@ -73,7 +78,8 @@ sap.ui.define([
 								new sap.m.ObjectAttribute({ title: "File Size", text: fileData.size.toString() })
 							]
 						});
-
+						
+						oItem.setVisibleEdit(false).setVisibleRemove(false);
 						oUploadSet.addItem(oItem);
 					});
 				},

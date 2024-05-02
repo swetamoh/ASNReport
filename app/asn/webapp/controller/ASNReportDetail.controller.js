@@ -37,7 +37,6 @@ sap.ui.define([
 				that.detailModel.refresh();
 				oModel.read("/GetASNDetailList", {
 					urlParameters: {
-						username: this.LoggedUser,
 						AddressCode: data.AddressCode,
 						ASNNumber: this.AsnNumber,
 						UnitCode: data.UnitCode

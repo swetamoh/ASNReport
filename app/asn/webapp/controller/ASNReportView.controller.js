@@ -75,7 +75,6 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
-					username: this.LoggedUser,
 					AddressCode: this.AddressCode,
 					PoNumber: '',
 					ASNNumber: '',
@@ -163,7 +162,6 @@ sap.ui.define([
 			sap.ui.core.BusyIndicator.show();
 			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
-					username: this.LoggedUser,
 					AddressCode: this.VendorCode,
 					PoNumber: data.PONumber,
 					ASNNumber: data.ASNNumber,
