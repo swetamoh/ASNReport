@@ -24,7 +24,7 @@ sap.ui.define([
 			// this.StatusFlag = false;
 			this.oDataModel = sap.ui.getCore().getModel("oDataModel");
 			this.getView().setModel(this.oDataModel);
-			sap.ui.core.BusyIndicator.show();
+			
 			var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyyMMdd"
 			});
@@ -70,6 +70,7 @@ sap.ui.define([
 			}, datePicker);
 		},
 		getASNData: function () {
+			sap.ui.core.BusyIndicator.show();
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.read("/GetASNHeaderList", {
