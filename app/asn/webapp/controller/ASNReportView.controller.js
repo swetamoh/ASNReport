@@ -118,7 +118,7 @@ sap.ui.define([
 		},
 
 		onFilterGoPress: function () {
-			sap.ui.core.BusyIndicator.show();
+			
 			var that = this;
 			var data = this.localModel.getData();
 			var oModel = this.getOwnerComponent().getModel();
@@ -160,6 +160,7 @@ sap.ui.define([
 			}
 			that.DataModel.setData([]);
 			that.DataModel.refresh();
+			sap.ui.core.BusyIndicator.show();
 			oModel.read("/GetASNHeaderList", {
 				urlParameters: {
 					username: this.LoggedUser,
