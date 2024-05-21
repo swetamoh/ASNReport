@@ -40,6 +40,7 @@ sap.fiori.asn.controller.formatter = {
             switch (status) {
                 case "Completed":
                 case "COMPLETED":
+				case "GE COMPLETED":
                     state = "Success";
                     break;
                 default: state = "Error";
